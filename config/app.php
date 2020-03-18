@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +174,9 @@ return [
         // Catering\Providers\BroadcastServiceProvider::class,
         Catering\Providers\EventServiceProvider::class,
         Catering\Providers\RouteServiceProvider::class,
+
+        //Installable
+        Laraveles\Spanish\SpanishServiceProvider::class,
 
     ],
 
