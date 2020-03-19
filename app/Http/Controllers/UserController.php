@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Catering\Models\User;
 use Catering\Http\Resources\UserResource;
 use Catering\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 use DB;
 use Exception;
 
@@ -38,6 +39,7 @@ class UserController extends Controller
         try {
             $user = new User();
             $user->fill($request->all());
+            $user->password = Hash::make($request->get('password'));
             $user->saveOrFail();
             DB::commit();
             return new UserResource($user);
@@ -76,6 +78,9 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             $user->fill($request->all());
+            if ($request->has('password')) {
+                $user->password = Hash::make($request->get('password'));
+            }
             $user->saveOrFail();
             DB::commit();
             return new UserResource($user);

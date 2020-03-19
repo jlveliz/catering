@@ -177,6 +177,7 @@ return [
 
         //Installable
         Laraveles\Spanish\SpanishServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 

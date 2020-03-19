@@ -4,7 +4,7 @@ namespace Catering\Http\Controllers\Auth;
 
 use Catering\Http\Controllers\Controller;
 use Catering\Providers\RouteServiceProvider;
-use Catering\User;
+use Catering\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;

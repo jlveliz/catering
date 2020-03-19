@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Catering\Models\User;
 use Catering\Models\Role;
-
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $password = bcrypt('password');
+        $password = Hash::make('password');
         $roleId = Role::where('slug','administrador')->first()->id;
 
         User::create([
