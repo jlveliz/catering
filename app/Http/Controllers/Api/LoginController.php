@@ -37,53 +37,32 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
-
+    
     public function login(Request $request)
     {
-        // $this->validateLogin($request);
+        $this->validateLogin($request);
 
-        // // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // // the login attempts for this application. We'll key this by the username and
-        // // the IP address of the client making these requests into this application.
-        // if (method_exists($this, 'hasTooManyLoginAttempts') &&
-        //     $this->hasTooManyLoginAttempts($request)) {
-        //     $this->fireLockoutEvent($request);
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
 
-        //     return $this->sendLockoutResponse($request);
-        // }
-
-        // if ($this->attemptLogin($request)) {
-
-        //     return $this->sendLoginResponse($request);
-        // }
-
-        // // If the login attempt was unsuccessful we will increment the number of attempts
-        // // to login and redirect the user back to the login form. Of course, when this
-        // // user surpasses their maximum number of attempts they will get locked out.
-        // $this->incrementLoginAttempts($request);
-
-        // return $this->sendFailedLoginResponse($request);
-
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-            $user = Auth::user();
-            $success['token'] = $user->createToken('appToken')->accessToken;
-           //After successfull authentication, notice how I return json parameters
-            return response()->json([
-              'success' => true,
-              'token' => $success,
-              'user' => $user
-          ]);
-        } else {
-       //if authentication is unsuccessfull, notice how I return json parameters
-          return response()->json([
-            'success' => false,
-            'message' => 'Invalid Email or Password',
-        ], 401);
+            return $this->sendLockoutResponse($request);
         }
+
+        if ($this->attemptLogin($request)) {
+
+            return $this->sendLoginResponse($request);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
      /**
@@ -95,7 +74,9 @@ class LoginController extends Controller
     protected function sendLoginResponse(Request $request)
     {
         $user = Auth::user();
-        $success['token'] =  $user->createToken('MyApp')-> accessToken;
+        $appname = env('app.name');
+        $success['token'] =  $user->createToken($appname)-> accessToken;
+        $this->clearLoginAttempts($request);
         return response()->json(['success' => $success],200);
     }
 
@@ -104,13 +85,9 @@ class LoginController extends Controller
      *
      * @return resource User
      */
-    public function getInfo()
+    public function getInfo(Request $request)
     {
-        dd(Auth::user());
-        if (Auth::user()) {
-            $user = $this->guard()->user();
-            return new UserResource($user);
-        }
+        return $request->user();
     }
 
 
