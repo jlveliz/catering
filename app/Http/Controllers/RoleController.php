@@ -98,11 +98,10 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
 
-        $isLock = ($role->lock == 1 ) ? true : false ;
-
-        if ($isLock) return response()->json(['message' => "El rol {$role->name} no puede ser eliminado"], 411);
-
         if ($role) {
+            $isLock = ($role->lock == 1 ) ? true : false ;
+            if ($isLock) return response()->json(['message' => "El rol {$role->name} no puede ser eliminado"], 411);
+
             $roleName =  $role->name;
             if($role->delete())
                 return response()->json(['message' => "Rol {$roleName} Eliminado  Correctamente"],200);

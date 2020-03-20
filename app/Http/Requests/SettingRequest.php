@@ -4,8 +4,7 @@ namespace Catering\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
-class RoleRequest extends FormRequest implements ValidationInterface
+class SettingRequest extends FormRequest implements ValidationInterface
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,28 +29,17 @@ class RoleRequest extends FormRequest implements ValidationInterface
             return $this->validateOnUpdate();
         }
     }
-    /**
-     * messages
-     *
-     * @return void
-     */
-    public function messages()
-    {
-        return [
-            'locked.boolean' => 'El tipo de bloqueo del rol es invalido'
-        ];
-    }
 
      /**
-     * Validate a user when is Saving
+     * Validate a setting when is Saving
      *
      * @return void
      */
     public function validateOnSave()
     {
         return [
-            'name' => 'required|string|unique:roles,name',
-            'slug' => 'required|unique:roles,slug',
+            'key' => 'required|string|unique:settings,key',
+            'value' => 'required',
             'lock' => 'boolean'
         ];
     }
@@ -63,13 +51,11 @@ class RoleRequest extends FormRequest implements ValidationInterface
      */
     public function validateOnUpdate()
     {
-        $roleId =  $this->route('role');
+        $settingId =  $this->route('setting');
         return [
-            'name' => 'required|string|unique:roles,name,'.$roleId,
-            'slug' => 'required|unique:roles,slug,'.$roleId,
+            'key' => 'required|string|unique:settings,key,'.$settingId,
+            'value' => 'required',
         ];
     }
-
-
 
 }

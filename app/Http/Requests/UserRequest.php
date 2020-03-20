@@ -4,7 +4,7 @@ namespace Catering\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class UserRequest extends FormRequest implements ValidationInterface
 {
 
     /**
@@ -47,7 +47,7 @@ class UserRequest extends FormRequest
      *
      * @return void
      */
-    private function validateOnSave()
+    public function validateOnSave()
     {
         return [
             'username' => 'required|string|unique:users,username',
@@ -65,7 +65,7 @@ class UserRequest extends FormRequest
      *
      * @return void
      */
-    private function validateOnUpdate()
+    public function validateOnUpdate()
     {
         $userId =  $this->route('user');
         return [

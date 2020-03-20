@@ -24,3 +24,4 @@ Route::post('login', 'Api\LoginController@login');
 
 Route::resource('users', 'UserController');
 Route::resource('roles', 'RoleController');
+Route::resource('settings', 'SettingController');
