@@ -13,15 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-//  Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     dd($request); 
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
-//  });
-
- Route::middleware('auth:api')->get('user-info', 'Api\LoginController@getInfo');
+// });
 
 
+Route::post('user-info', 'Api\LoginController@getInfo')->middleware('auth:api');
 Route::post('login', 'Api\LoginController@login');
 
 
 Route::resource('users', 'UserController');
+Route::resource('roles', 'RoleController');
