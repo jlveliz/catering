@@ -104,8 +104,12 @@ class IdentificationTypeController extends Controller
 
 
         if ($idType) {
+
             $isLock = ($idType->lock == 1 ) ? true : false ;
             if ($isLock) return response()->json(['message' => "El tipo de identificacion {$idType->name} no puede ser eliminada"], 411);
+
+            if( count($idType->customers) > 0 ) return response()->json(['message' => "El tipo de identificacion {$idType->name} no puede ser eliminada por que un cliente usa este tipo de identificacion"], 411);
+
             $idTypeName =  $idType->name;
             if($idType->delete())
                 return response()->json(['message' => "El tipo de identificacion {$idTypeName} Eliminada  Correctamente"],200);

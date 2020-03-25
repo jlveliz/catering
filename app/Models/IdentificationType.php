@@ -10,4 +10,9 @@ class IdentificationType extends Model
         'name',
         'lock'
     ];
+
+    public function customers()
+    {
+        return $this->hasMany('Catering\Models\Customer', 'identification_type');
+    }
 }

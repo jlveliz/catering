@@ -26,4 +26,9 @@ class Customer extends Model
     {
         return $this->belongsTo('Catering\Models\User', 'user_created_at');
     }
+
+    public function idType()
+    {
+        return $this->belongsTo('Catering\Models\IdentificationType', 'identification_type');
+    }
 }

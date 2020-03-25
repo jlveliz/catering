@@ -33,7 +33,7 @@ class CustomerRequest extends FormRequest implements ValidationInterface
     public function validateOnSave()
     {
         return [
-            'identification_type' => 'required', //TODO CON TABLA DE TIPO DE IDENTIFICACION
+            'identification_type' => 'required|exists:identification_types,id',
             'identification' => 'required|min:10|max:13|unique:customers,identification',
             'is_company' => 'required|boolean',
             'name' => 'required|string|max:55',
