@@ -7,6 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
 
+
+    protected $fillable = [
+        'dni',
+        'name',
+        'lastname',
+        'date_birth',
+        'genre',
+        'address',
+        'civil_status',
+        'phone',
+        'mobile',
+        'email',
+        'photo',
+        'emergency_contact_name',
+        'salary',
+        'position',
+        'date_admission',
+        'date_departure',
+        'state',
+        'workplace_id',
+        'user_created_at'
+    ];
+
     /**
      * Cada Trabajador tiene un area de trabajo
      *
@@ -24,6 +47,6 @@ class Employee extends Model
      */
     public function creator()
     {
-        return $this->belongsTo('Catering\Models\User', 'user_created_id', 'id');
+        return $this->belongsTo('Catering\Models\User', 'user_created_at', 'id');
     }
 }

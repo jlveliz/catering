@@ -35,8 +35,8 @@ class RolesTableSeeder extends Seeder
             ]);
         }
 
-        $inventory = $this->findRole('jefe_inventario');
-
+        $inventory = $this->findRole('jefe-inventario');
+        
         if(!$inventory) {
             Role::create([
                 'name' => 'Jefe Inventario',

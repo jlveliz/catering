@@ -23,7 +23,7 @@ class CreateTableEmployees extends Migration
                 $table->date('date_birth');
                 $table->string('genre',10);
                 $table->string('address',300);
-                $table->string('civil_status',10)->nullable();
+                $table->string('civil_status',20)->nullable();
                 $table->string('phone');
                 $table->string('mobile')->nullable();
                 $table->string('email',50)->unique();
