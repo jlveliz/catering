@@ -24,7 +24,7 @@ $factory->define(Customer::class, function (Faker $faker) {
         'identification_type' => 1,
         'identification' => $faker->phoneNumber,
         'is_company' => $faker->boolean,
-        'name' => $faker->company || $faker->name,
+        'name' => $faker->company,
         'lastname' => $faker->lastName,
         'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,

@@ -27,3 +27,4 @@ Route::resource('roles', 'RoleController');
 Route::resource('settings', 'SettingController');
 Route::resource('workplaces', 'WorkplaceController');
 Route::resource('employees','EmployeeController');
+Route::resource('customers','CustomerController');
