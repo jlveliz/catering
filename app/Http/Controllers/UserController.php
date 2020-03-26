@@ -77,13 +77,16 @@ class UserController extends Controller
 
         try {
             $user = User::find($id);
-            $user->fill($request->all());
-            if ($request->has('password')) {
-                $user->password = Hash::make($request->get('password'));
+            if($user) {
+                $user->fill($request->all());
+                if ($request->has('password')) {
+                    $user->password = Hash::make($request->get('password'));
+                }
+                $user->saveOrFail();
+                DB::commit();
+                return new UserResource($user);
             }
-            $user->saveOrFail();
-            DB::commit();
-            return new UserResource($user);
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(['message' => 'Hubo un error al actualizar el usuario, intente nuevamente'],411);

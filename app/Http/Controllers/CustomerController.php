@@ -75,13 +75,16 @@ class CustomerController extends Controller
 
         try {
             $customer = Customer::find($id);
-            $customer->fill($request->all());
-            if (request('is_company') == '0' || request('is_company')  == 0) {
-                $customer->legal_representant = '';
+            if ($customer) {
+                $customer->fill($request->all());
+                if (request('is_company') == '0' || request('is_company')  == 0) {
+                    $customer->legal_representant = '';
+                }
+                $customer->saveOrFail();
+                DB::commit();
+                return new CustomerResource($customer);
             }
-            $customer->saveOrFail();
-            DB::commit();
-            return new CustomerResource($customer);
+            return response()->json(['message' => 'Cliente no encontrado'], 404); 
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(['message' => 'Hubo un error al actualizar el cliente, intente nuevamente'],411);

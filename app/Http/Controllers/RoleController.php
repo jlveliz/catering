@@ -75,13 +75,16 @@ class RoleController extends Controller
 
         try {
             $role = Role::find($id);
-            $role->fill($request->all());
-            if ($request->has('lock')) {
-                $role->lock = request('lock');
+            if ($role) {
+                $role->fill($request->all());
+                if ($request->has('lock')) {
+                    $role->lock = request('lock');
+                }
+                $role->saveOrFail();
+                DB::commit();
+                return new RolesResource($role);
             }
-            $role->saveOrFail();
-            DB::commit();
-            return new RolesResource($role);
+            return response()->json(['message' => 'Rol no encontrado'], 404);
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(['message' => 'Hubo un error al actualizar el rol, intente nuevamente'],411);

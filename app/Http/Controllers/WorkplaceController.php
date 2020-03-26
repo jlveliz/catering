@@ -72,10 +72,13 @@ class WorkplaceController extends Controller
 
         try {
             $workplace = Workplace::find($id);
-            $workplace->fill($request->all());
-            $workplace->saveOrFail();
-            DB::commit();
-            return new WorkplaceResource($workplace);
+            if ($workplace) {
+                $workplace->fill($request->all());
+                $workplace->saveOrFail();
+                DB::commit();
+                return new WorkplaceResource($workplace);
+            }
+            return response()->json(['message' => 'Lugar de Trabajo no encontrado'], 404);
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(['message' => 'Hubo un error al actualizar el lugar de trabajo, intente nuevamente'],411);

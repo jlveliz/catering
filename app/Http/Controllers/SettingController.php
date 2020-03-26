@@ -76,13 +76,16 @@ class SettingController extends Controller
 
         try {
             $setting = Setting::find($id);
-            $setting->fill($request->all());
-            if ($request->has('lock')) {
-                $setting->lock = request('lock');
+            if ($setting) {
+                $setting->fill($request->all());
+                if ($request->has('lock')) {
+                    $setting->lock = request('lock');
+                }
+                $setting->saveOrFail();
+                DB::commit();
+                return new SettingsResource($setting);
             }
-            $setting->saveOrFail();
-            DB::commit();
-            return new SettingsResource($setting);
+            return response()->json(['message' => 'Configuración no encontrada'], 404);
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(['message' => 'Hubo un error al actualizar la configuración, intente nuevamente'],411);
