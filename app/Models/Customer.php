@@ -31,4 +31,9 @@ class Customer extends Model
     {
         return $this->belongsTo('Catering\Models\IdentificationType', 'identification_type');
     }
+
+    public function contracts()
+    {
+        return $this->hasMany('Catering\Models\CustomerContract','customer_id');
+    }
 }

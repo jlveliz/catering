@@ -135,6 +135,8 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        // Los valores no son iguales
+        'equal-value' => 'El :attribute deben ser iguales.'
     ],
 
     /*

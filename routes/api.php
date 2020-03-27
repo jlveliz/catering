@@ -27,5 +27,6 @@ Route::resource('roles', 'RoleController');
 Route::resource('settings', 'SettingController');
 Route::resource('workplaces', 'WorkplaceController');
 Route::resource('employees','EmployeeController');
-Route::resource('customers','CustomerController');
 Route::resource('identification-types','IdentificationTypeController');
+Route::resource('customers','CustomerController');
+Route::resource('customers.contracts','CustomerContractController');
