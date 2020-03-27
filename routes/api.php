@@ -30,3 +30,4 @@ Route::resource('employees','EmployeeController');
 Route::resource('identification-types','IdentificationTypeController');
 Route::resource('customers','CustomerController');
 Route::resource('customers.contracts','CustomerContractController');
+Route::get('customers/{customer}/current-contract','CustomerContractController@current');

@@ -13,4 +13,10 @@ class CustomerContract extends Model
         'start_date',
         'end_date'
     ];
+
+
+    public function customer()
+    {
+        return $this->belongsTo('Customer','customer_id');
+    }
 }

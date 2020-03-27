@@ -145,4 +145,15 @@ class CustomerContractController extends Controller
         }
         return response()->json(['message' => 'Cliente no encontrado'], 404);
     }
+
+
+    public function current($customer)
+    {
+        $customer = Customer::find($customer);
+        if ($customer) {
+            $contract = $customer->getCurrentContract();
+            return new CustomerContractResource($contract);
+        }
+        return response()->json(['message' => 'Cliente no encontrado'], 404);
+    }
 }

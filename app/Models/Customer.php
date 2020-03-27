@@ -21,7 +21,9 @@ class Customer extends Model
         'cut_invoice',
         'user_created_at'
     ];
-
+    /**
+     * RELATIONS
+     */
     public function creator()
     {
         return $this->belongsTo('Catering\Models\User', 'user_created_at');
@@ -35,5 +37,13 @@ class Customer extends Model
     public function contracts()
     {
         return $this->hasMany('Catering\Models\CustomerContract','customer_id');
+    }
+
+    /**
+     * FUNCTIONS
+     */
+    public function getCurrentContract()
+    {
+        return $this->contracts()->where('start_date','<=',date('Y-m-d'))->where('end_date','>=',date('Y-m-d'))->first();
     }
 }
