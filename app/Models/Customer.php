@@ -46,4 +46,9 @@ class Customer extends Model
     {
         return $this->contracts()->where('start_date','<=',date('Y-m-d'))->where('end_date','>=',date('Y-m-d'))->first();
     }
+
+    public function hasCurrentContract()
+    {
+        return $this->getCurrentContract() ?  true : false;
+    }
 }

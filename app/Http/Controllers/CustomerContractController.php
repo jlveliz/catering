@@ -37,7 +37,12 @@ class CustomerContractController extends Controller
         try {
             $customer = Customer::find($customer);
             if ($customer) {
-                
+
+                //valida si tiene un contrato activo antes de guardar
+                if ($customer->hasCurrentContract()) {
+                    return response()->json(['message' => 'El Cliente ya tiene un contracto activo'], 411);
+                }
+
                 $settingKey = Setting::where('key',request('frequency_key_id'))->first()->id;
 
                 $contract = new CustomerContract();
@@ -45,15 +50,15 @@ class CustomerContractController extends Controller
                 $contract->frequency_key_id = $settingKey;
                 $contract->save();
                 DB::commit();
-                
+
                 return new CustomerContractResource($contract);
             }
-            return response()->json(['message' => 'El contrato no se puede guardar contrato que el cliente no encontrado'], 404); 
+            return response()->json(['message' => 'El contrato no se puede guardar contrato que el cliente no encontrado'], 404);
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(
                 [
-                    'message' => 'Hubo un error al guardar el contrato, intente nuevamente', 
+                    'message' => 'Hubo un error al guardar el contrato, intente nuevamente',
                     'details' => $e->getMessage()
                 ],
                 411
@@ -69,7 +74,7 @@ class CustomerContractController extends Controller
      */
     public function show($customer,$id)
     {
-        $contract = CustomerContract::where('customer_id',$customer)->where('id',$id)->first(); 
+        $contract = CustomerContract::where('customer_id',$customer)->where('id',$id)->first();
         if ($contract) {
             return new CustomerContractResource($contract);
         }
@@ -91,7 +96,7 @@ class CustomerContractController extends Controller
             $customer = Customer::find($customer);
 
             if ($customer) {
-                
+
                 $settingKey = Setting::where('key',request('frequency_key_id'))->first()->id;
 
                 $contract = $customer->contracts()->find($id);
@@ -103,14 +108,14 @@ class CustomerContractController extends Controller
                     DB::commit();
                     return new CustomerContractResource($contract);
                 }
-                
-                return response()->json(['message' => "Contracto {$id} no encontrado"], 404); 
+
+                return response()->json(['message' => "Contracto {$id} no encontrado"], 404);
 
             }
-            return response()->json(['message' => 'Cliente no encontrado'], 404); 
+            return response()->json(['message' => 'Cliente no encontrado'], 404);
         }catch(Exception $e) {
             DB::rollback();
-            return response()->json(['message' => 'Hubo un error al actualizar el contrato, intente nuevamente', 
+            return response()->json(['message' => 'Hubo un error al actualizar el contrato, intente nuevamente',
             'details' => $e->getMessage()],411);
         }
     }
@@ -133,15 +138,22 @@ class CustomerContractController extends Controller
 
             $contract = $customer->contracts()->find($id);
 
+
             if ($contract) {
+                //verifica si el contrato que va a eliminar esta activo
+                if ($customer->hasCurrentContract()) {
+                    if ($contract->id == $customer->getCurrentContract()->id) {
+                        return response()->json(['message' => 'No se puede eliminar un contrato que se encuentra activo'], 411);
+                    }
+                }
                 $contractCode = $contract->contract_code;
                 if($contract->delete())
                     return response()->json(['message' => "El contrato {$contractCode} del cliente {$customerName} eliminado  correctamente"],200);
-                
+
             }
 
-            return response()->json(['message' => "Contracto {$id} no encontrado"], 404); 
-            
+            return response()->json(['message' => "Contracto {$id} no encontrado"], 404);
+
         }
         return response()->json(['message' => 'Cliente no encontrado'], 404);
     }
