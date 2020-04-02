@@ -14,6 +14,11 @@ class CustomerContract extends Model
         'end_date'
     ];
 
+    /**
+     * Relations
+     *
+     */
+
 
     public function customer()
     {

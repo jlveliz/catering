@@ -13,21 +13,23 @@ class CreateTableCustomerContractDetails extends Migration
      */
     public function up()
     {
-        Schema::create('customer_contract_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('customer_contract_id');
-            $table->enum('setting_key_id',[
-                'breakfast',
-                'lunch',
-                'dinner',
-                'dietary_breakfast',
-                'dietary_lunch',
-                'dietary_dinner'
-                ]
-            )->comment('Saber si vendera desayunos almuerzos o meriendas');
-            $table->double('price');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('customer_contract_details')) {
+            Schema::create('customer_contract_details', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->integer('customer_contract_id');
+                $table->enum('setting_key_id',[
+                    'breakfast',
+                    'lunch',
+                    'dinner',
+                    'dietary_breakfast',
+                    'dietary_lunch',
+                    'dietary_dinner'
+                    ]
+                )->comment('Saber si vendera desayunos almuerzos o meriendas');
+                $table->double('price');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
