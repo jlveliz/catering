@@ -10,7 +10,7 @@ use Faker\Generator as Faker;
 $factory->define(CustomerContract::class, function (Faker $faker) {
 
     $keyDays = Setting::where('key','monday_to_friday')->orWhere('key','monday_to_sunday')->get()->toArray();
-    
+
     return [
         'contract_code' => $faker->randomDigit,
         'customer_id' => Customer::all()->random(1)->first()->id,

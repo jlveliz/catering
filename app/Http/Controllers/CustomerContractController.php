@@ -132,8 +132,6 @@ class CustomerContractController extends Controller
 
         if ($customer) {
 
-            //TODO HACER VALIDACION PARA SABER SI ESE CONTRATO ESTA VIGENTE
-
             $customerName =  $customer->name . ' ' . $customer->lastname ? $customer->lastname : '';
 
             $contract = $customer->contracts()->find($id);

@@ -17,6 +17,11 @@ class CustomerContract extends Model
 
     public function customer()
     {
-        return $this->belongsTo('Customer','customer_id');
+        return $this->belongsTo('Catering\Models\Customer','customer_id');
+    }
+
+    public function details()
+    {
+        return $this->hasMany('Catering\Models\CustomerContractDetail','customer_contract_id');
     }
 }

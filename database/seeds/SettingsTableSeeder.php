@@ -37,7 +37,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         //Telf del negocio
-        $businessPhone = $this->findSetting('phone_address');
+        $businessPhone = $this->findSetting('business_phone');
 
         if (!$businessPhone) {
             Setting::create([
@@ -92,6 +92,73 @@ class SettingsTableSeeder extends Seeder
                  'lock' => 1
              ]);
          }
+
+
+        //Desayuno
+        $breakfast = $this->findSetting('breakfast');
+
+        if (!$breakfast) {
+            Setting::create([
+                'key' => 'breakfast',
+                'value' => 'yes',
+                'lock' => 1
+            ]);
+        }
+
+        //Desayuno Dietetico
+        $breakfast = $this->findSetting('dietary_breakfast');
+
+        if (!$breakfast) {
+            Setting::create([
+                'key' => 'dietary_breakfast',
+                'value' => 'no',
+                'lock' => 1
+            ]);
+        }
+
+
+        //Almuerzo
+        $lunch = $this->findSetting('lunch');
+
+        if (!$lunch) {
+            Setting::create([
+                'key' => 'lunch',
+                'value' => 'yes',
+                'lock' => 1
+            ]);
+        }
+
+        //Almuerzo Dietetico
+        $lunch = $this->findSetting('dietary_lunch');
+
+        if (!$lunch) {
+            Setting::create([
+                'key' => 'dietary_lunch',
+                'value' => 'no',
+                'lock' => 1
+            ]);
+        }
+
+         //Merienda
+         $dinner = $this->findSetting('dinner');
+
+         if (!$dinner) {
+             Setting::create([
+                 'key' => 'dinner',
+                 'value' => 'yes',
+                 'lock' => 1
+             ]);
+         }
+
+         //Merienda de dieta
+         $dinner = $this->findSetting('dietary_dinner');
+         if (!$dinner) {
+            Setting::create([
+                'key' => 'dietary_dinner',
+                'value' => 'no',
+                'lock' => 1
+            ]);
+        }
     }
 
     private function findSetting($keyVal)
