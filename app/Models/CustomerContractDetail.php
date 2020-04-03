@@ -27,4 +27,17 @@ class CustomerContractDetail extends Model
     {
         return $this->belongsTo('Catering\Models\CustomerContract', 'customer_contract_id');
     }
+
+    /**
+     * Functions
+     */
+    public function hasOrders()
+    {
+        return count($this->orders) > 0 ? true : false;
+    }
+
+    public function getLastOrder()
+    {
+        return $this->orders()->orderBy('date','desc')->first();
+    }
 }

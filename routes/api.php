@@ -33,3 +33,4 @@ Route::resource('customers.contracts','CustomerContractController');
 Route::get('customers/{customer}/current-contract','CustomerContractController@current');
 Route::resource('contracts.details','CustomerContractDetailController');
 Route::resource('details.orders', 'OrderController');
+Route::get('details/{detail}/last-order','OrderController@getLastOrder');
