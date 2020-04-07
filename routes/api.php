@@ -37,3 +37,4 @@ Route::get('details/{detail}/last-order','OrderController@getLastOrder');
 Route::resource('providers', 'ProviderController');
 Route::resource('pr-types', 'ProductTypeController');
 Route::resource('products', 'ProductController');
+Route::resource('inventory-types', 'InventoryOrderTypeController')->only('index','show');
