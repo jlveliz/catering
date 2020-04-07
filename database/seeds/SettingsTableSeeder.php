@@ -31,7 +31,7 @@ class SettingsTableSeeder extends Seeder
         if (!$businessAddress) {
             Setting::create([
                 'key' => 'business_address',
-                'value' => config('app.name') . ' Av.' ,
+                'value' => config('app.name') . ' Av.',
                 'lock' => 1
             ]);
         }
@@ -82,16 +82,16 @@ class SettingsTableSeeder extends Seeder
             ]);
         }
 
-         //Servicio de Lunes a Domingo
-         $monToSunday = $this->findSetting('monday_to_sunday');
+        //Servicio de Lunes a Domingo
+        $monToSunday = $this->findSetting('monday_to_sunday');
 
-         if (!$monToSunday) {
-             Setting::create([
-                 'key' => 'monday_to_sunday',
-                 'value' => 'yes',
-                 'lock' => 1
-             ]);
-         }
+        if (!$monToSunday) {
+            Setting::create([
+                'key' => 'monday_to_sunday',
+                'value' => 'yes',
+                'lock' => 1
+            ]);
+        }
 
 
         //Desayuno
@@ -139,23 +139,53 @@ class SettingsTableSeeder extends Seeder
             ]);
         }
 
-         //Merienda
-         $dinner = $this->findSetting('dinner');
+        //Merienda
+        $dinner = $this->findSetting('dinner');
 
-         if (!$dinner) {
-             Setting::create([
-                 'key' => 'dinner',
-                 'value' => 'yes',
-                 'lock' => 1
-             ]);
-         }
+        if (!$dinner) {
+            Setting::create([
+                'key' => 'dinner',
+                'value' => 'yes',
+                'lock' => 1
+            ]);
+        }
 
-         //Merienda de dieta
-         $dinner = $this->findSetting('dietary_dinner');
-         if (!$dinner) {
+        //Merienda de dieta
+        $dinner = $this->findSetting('dietary_dinner');
+        if (!$dinner) {
             Setting::create([
                 'key' => 'dietary_dinner',
                 'value' => 'no',
+                'lock' => 1
+            ]);
+        }
+
+        //Libra
+        $lb = $this->findSetting('lb');
+        if (!$lb) {
+            Setting::create([
+                'key' => 'lb',
+                'value' => 'Libra',
+                'lock' => 1
+            ]);
+        }
+
+        //Kilo
+        $kg = $this->findSetting('kg');
+        if (!$kg) {
+            Setting::create([
+                'key' => 'kg',
+                'value' => 'Kilo',
+                'lock' => 1
+            ]);
+        }
+
+        //Litro
+        $l = $this->findSetting('l');
+        if (!$l) {
+            Setting::create([
+                'key' => 'l',
+                'value' => 'Litro',
                 'lock' => 1
             ]);
         }
@@ -163,6 +193,6 @@ class SettingsTableSeeder extends Seeder
 
     private function findSetting($keyVal)
     {
-        return Setting::where('key',$keyVal)->first();
+        return Setting::where('key', $keyVal)->first();
     }
 }
