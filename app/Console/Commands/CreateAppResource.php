@@ -41,7 +41,7 @@ class CreateAppResource extends Command
     {
         $moduleName = $this->argument('module');
         $tableName = Str::snake($moduleName);
-        dd($tableName);
+
         $this->info('Creating Migation');
         Artisan::call("make:migration create_table_{$tableName}s --create={$tableName}s");
 

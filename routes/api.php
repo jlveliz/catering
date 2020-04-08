@@ -39,3 +39,4 @@ Route::resource('pr-types', 'ProductTypeController');
 Route::resource('products', 'ProductController');
 Route::resource('inventory-types', 'InventoryOrderTypeController')->only('index','show');
 Route::resource('inventory-orders', 'InventoryOrderController');
+Route::resource('inventory-orders.details', 'InventoryOrderDetailController');

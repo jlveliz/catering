@@ -25,4 +25,9 @@ class InventoryOrder extends Model
     {
         return $this->belongsTo('Catering\Models\InventoryOrderType', 'order_type_id');
     }
+
+    public function details()
+    {
+        return $this->hasMany('Catering\Models\InventoryOrderDetail', 'inventory_order_id');
+    }
 }
