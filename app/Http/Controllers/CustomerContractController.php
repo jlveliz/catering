@@ -7,6 +7,7 @@ use Catering\Http\Requests\CustomerContractRequest;
 use Catering\Http\Resources\CustomerContractResource;
 use Catering\Models\Customer;
 use Catering\Models\CustomerContract;
+use Catering\Models\Sequential;
 use Catering\Models\Setting;
 use DB;
 use Exception;
@@ -46,7 +47,10 @@ class CustomerContractController extends Controller
                 $settingKey = Setting::where('key',request('frequency_key_id'))->first()->id;
 
                 $contract = new CustomerContract();
+                $sequential = new Sequential();
                 $contract->fill(request()->all());
+                $contractCode = $sequential->createCode('contract');
+                $contract->contract_code = $contractCode;
                 $contract->frequency_key_id = $settingKey;
                 $contract->save();
                 DB::commit();
