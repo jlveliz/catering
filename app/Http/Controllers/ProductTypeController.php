@@ -99,7 +99,7 @@ class ProductTypeController extends Controller
 
         if ($prType) {
             // TODO VERIFICAR SI TIENE PRODUCTOS
-            // if( count($prType->customers) > 0 ) return response()->json(['message' => "El tipo de identificacion {$prType->name} no puede ser eliminada por que un cliente usa este tipo de identificacion"], 411);
+            if( count($prType->products) > 0 ) return response()->json(['message' => "El tipo de producto {$prType->name} no puede ser eliminada por que un producto usa este tipo de producto"], 411);
 
             $prTypeName =  $prType->name;
             if($prType->delete())
