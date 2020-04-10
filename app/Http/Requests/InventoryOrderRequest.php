@@ -35,7 +35,7 @@ class InventoryOrderRequest extends FormRequest implements ValidationInterface
         return [
             'order_type_id' => 'required|exists:inventory_order_types,id',
             'created_user_id' => 'required|exists:users,id',
-            'code' => 'required|unique:inventory_orders,code'
+            'code' => 'unique:inventory_orders,code'
         ];
     }
 

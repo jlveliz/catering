@@ -36,7 +36,7 @@ class CustomerContractRequest extends FormRequest implements ValidationInterface
     public function validateOnSave()
     {
         return [
-            'contract_code' => ['required','unique:customer_contracts','max:30'],
+            'contract_code' => ['unique:customer_contracts','max:30'],
             'customer_id' => ['required','exists:customers,id',new EqualValue($this->route('customer'))],
             'frequency_key_id' => 'required|in:monday_to_friday,monday_to_sunday',
             'start_date' => 'required|date_format:Y-m-d',

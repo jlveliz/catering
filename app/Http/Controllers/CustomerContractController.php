@@ -47,8 +47,8 @@ class CustomerContractController extends Controller
                 $settingKey = Setting::where('key',request('frequency_key_id'))->first()->id;
 
                 $contract = new CustomerContract();
-                $sequential = new Sequential();
                 $contract->fill(request()->all());
+                $sequential = new Sequential();
                 $contractCode = $sequential->createCode('contract');
                 $contract->contract_code = $contractCode;
                 $contract->frequency_key_id = $settingKey;
