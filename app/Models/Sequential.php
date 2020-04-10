@@ -13,16 +13,23 @@ class Sequential extends Model
     ];
 
 
+    /**
+     * CUSTOM SETTINGS
+     */
+
+
 
     private $type;
 
     public $types = [
-        'inv-in',
+        'inv-i',
         'inv-o',
         'contract'
     ];
 
     private $base = "0000";
+
+    private $initialInv = "IN";
 
     public function createCode($type)
     {
@@ -33,17 +40,11 @@ class Sequential extends Model
         }
 
         switch ($this->type) {
-            case 'inv-in':
-                return $this->generateCodeInvIn();
-                break;
-            case 'inv-o':
-                return $this->generateCodeInvOut();
-                break;
             case 'contract':
                 return $this->generateCodeContract();
                 break;
             default:
-                # code...
+                return $this->generateCodeForInventory();
                 break;
         }
     }
@@ -53,21 +54,30 @@ class Sequential extends Model
      *
      * @return void
      */
-    private function generateCodeInvIn()
+    private function generateCodeForInventory()
     {
-        $sequential = $this->getLastSequential();
-        dd($sequential);
+        $lastSequential = $this->getLastSequential();
+        $currentSequential = (int)$lastSequential + 1;
+        $sequential = $this->formatSequential($currentSequential);
+        //Type inventory
+        $typeInventory = $this->type == 'inv-i' ? 'I' : 'O';
+        //year format 20 - 21 - 22
+        $cYear = date('y');
+        //current Month 01-02-03
+        $cMonth = date('m');
+        //current Day
+        $cDay = date('d');
+
+
+         /**
+         * Save Sequential
+         */
+        $this->saveSequential($currentSequential);
+
+        //Inventory Code
+        return $this->initialInv . $typeInventory . $cYear . $cMonth . $cDay . $sequential;
     }
 
-    /**
-     * Generate a code for Inv type out
-     *
-     * @return void
-     */
-    private function generateCodeInvOut()
-    {
-        # code...
-    }
 
     /**
      * Generate a code for for Contract
@@ -85,7 +95,7 @@ class Sequential extends Model
         /**
          * Save Sequential
          */
-        $this->saveSequential($currentSequential,$this->type);
+        $this->saveSequential($currentSequential);
 
         return $business.'-'.$currentYear.'-'.$sequential;
     }
@@ -118,7 +128,7 @@ class Sequential extends Model
     }
 
     /**
-     * Get Business Name
+     * Get the first letter of a Business Name
      *
      * @return String
      */
@@ -138,14 +148,13 @@ class Sequential extends Model
      * Undocumented function
      *
      * @param Int $sequential
-     * @param String $name
      * @return void
      */
-    private function saveSequential($sequential,$type)
+    private function saveSequential($sequential)
     {
         $this->create([
             'value' => $sequential,
-            'type' => $type
+            'type' => $this->type
         ]);
     }
 }
