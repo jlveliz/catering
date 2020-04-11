@@ -72,10 +72,13 @@ class ProviderController extends Controller
 
         try {
             $provider = Provider::find($id);
-            $provider->fill($request->all());
-            $provider->saveOrFail();
-            DB::commit();
-            return new ProviderResource($provider);
+            if ($provider) {
+                $provider->fill($request->all());
+                $provider->saveOrFail();
+                DB::commit();
+                return new ProviderResource($provider);
+            }
+            return response()->json(['message' => 'Proveedor no encontrado'], 404);
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(['message' => 'Hubo un error al actualizar el proveedor, intente nuevamente'],411);
