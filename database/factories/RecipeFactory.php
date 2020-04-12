@@ -18,12 +18,11 @@ $factory->define(Recipe::class, function (Faker $faker) {
     ])->get()->toArray();
 
 
-
     return [
         'setting_key_id' => $foodTypes[array_rand($foodTypes)]['id'],
-        'title' => $faker->title,
+        'title' => $faker->unique()->title,
         'steps'=> $faker->text,
         'ingredients' => $faker->text,
-        'date_cook' => date('Y-m-d')
+        'is_favorite' => rand(0,1)
     ];
 });

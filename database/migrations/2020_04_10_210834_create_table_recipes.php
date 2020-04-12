@@ -17,11 +17,11 @@ class CreateTableRecipes extends Migration
             Schema::create('recipes', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->integer('setting_key_id')->comment('Sirve para saber si es almuerzo, desayuno, merienda etc');
-                $table->string('title');
+                $table->string('title')->unique();
                 $table->integer('inventory_order_id')->nullable();
                 $table->text('ingredients');
                 $table->text('steps');
-                $table->date('date_cook');
+                $table->boolean('is_favorite');
                 $table->timestamps();
             });
         }

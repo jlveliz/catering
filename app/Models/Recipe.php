@@ -12,7 +12,7 @@ class Recipe extends Model
         'inventory_order_id',
         'ingredients',
         'steps',
-        'date_cook'
+        'is_favorite'
     ];
 
     /**

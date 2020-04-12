@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(InventoryOrderTypeTableSeeder::class);
         $this->call(InventoryOrderTableSeeder::class);
         $this->call(InventoryOrderDetailTableSeeder::class);
+        $this->call(RecipeTableSeeder::class);
     }
 }

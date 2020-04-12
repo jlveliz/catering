@@ -35,17 +35,19 @@ class RecipeRequest extends FormRequest implements ValidationInterface
     {
         return [
             'setting_key_id' => 'required|exists:settings,id',
-            'title' =>'required',
+            'title' =>'required|unique:recipes,title',
             'ingredients' => 'required',
             'steps' => 'required',
-            'date_cook' => 'required|date_format:Y-m-d'
+            'is_favorite' => 'required|boolean'
         ];
     }
 
     public function validateOnUpdate()
     {
+        $recipeId = $this->route('recipe');
         $rules = $this->validateOnSave();
         $rules['inventory_order_id'] = 'exists:inventory_order,id';
+        $rules['title'] = 'required|unique:recipes,title,'.$recipeId;
         return $rules;
     }
 }
