@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(IdentificationTypeTableSeeder::class);
         $this->call(CustomerContractTableSeeder::class);
         $this->call(CustomerContractDetailTableSeeder::class);
-        $this->call(OrderTableSeeder::class);
         $this->call(ProviderTableSeeder::class);
         $this->call(ProductTypeTableSeeder::class);
         $this->call(ProductTableSeeder::class);
@@ -28,5 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(InventoryOrderTableSeeder::class);
         $this->call(InventoryOrderDetailTableSeeder::class);
         $this->call(RecipeTableSeeder::class);
+        $this->call(RecipePlanificationTableSeeder::class);
+        $this->call(OrderTableSeeder::class);
     }
 }

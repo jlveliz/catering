@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "andrey-helldar/laravel-app": "^1.0",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.4",

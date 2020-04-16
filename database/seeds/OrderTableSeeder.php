@@ -3,6 +3,7 @@
 use Catering\Models\CustomerContractDetail;
 use Illuminate\Database\Seeder;
 use Catering\Models\Order;
+use Catering\Models\Recipe;
 
 class OrderTableSeeder extends Seeder
 {
@@ -17,7 +18,10 @@ class OrderTableSeeder extends Seeder
         $states = ['pendiente','entregado','cancelado'];
 
         foreach ($detailsContract as $key => $detail) {
+            $recipeId = Recipe::all()->random(1)->first()->id;
+
             $order = new Order();
+            $order->recipe_id = $recipeId;
             $order->customer_contract_detail_id = $detail->id;
             $order->date = date('Y-m-d');
             $order->count = rand(1,1000);
