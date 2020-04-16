@@ -41,3 +41,4 @@ Route::resource('inventory-types', 'InventoryOrderTypeController')->only('index'
 Route::resource('inventory-orders', 'InventoryOrderController');
 Route::resource('inventory-orders.details', 'InventoryOrderDetailController');
 Route::resource('recipes', 'RecipeController');
+Route::resource('planifications', 'RecipePlanificationController');

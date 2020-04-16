@@ -136,7 +136,8 @@ return [
             'rule-name' => 'custom-message',
         ],
         // Los valores no son iguales
-        'equal-value' => 'El :attribute deben ser iguales.'
+        'equal-value' => 'El :attribute deben ser iguales.',
+        'min-date' => 'El :attribute no tiene fecha mínima requerida'
     ],
 
     /*

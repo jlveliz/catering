@@ -18,7 +18,6 @@ class CreateTableRecipes extends Migration
                 $table->bigIncrements('id');
                 $table->integer('setting_key_id')->comment('Sirve para saber si es almuerzo, desayuno, merienda etc');
                 $table->string('title')->unique();
-                $table->integer('inventory_order_id')->nullable();
                 $table->text('ingredients');
                 $table->text('steps');
                 $table->boolean('is_favorite');

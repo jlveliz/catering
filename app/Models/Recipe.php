@@ -9,7 +9,6 @@ class Recipe extends Model
     protected $fillable = [
         'setting_key_id',
         'title',
-        'inventory_order_id',
         'ingredients',
         'steps',
         'is_favorite'
@@ -23,5 +22,10 @@ class Recipe extends Model
     public function orderOut()
     {
         return $this->belongsTo('Catering\Models\InventoryOrder', 'inventory_order_id');
+    }
+
+    public function planifications()
+    {
+        return $this->hasMany('Catering\Models\RecipePlanification', 'recipe_id');
     }
 }
