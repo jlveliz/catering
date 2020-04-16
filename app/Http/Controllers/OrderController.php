@@ -36,11 +36,18 @@ class OrderController extends Controller
         try {
             $detail = CustomerContractDetail::find($detailId);
             if ($detail) {
-                $order = new Order();
-                $order->fill(request()->all());
-                $order->save();
-                DB::commit();
-                return new OrderResource($order);
+
+                $existsSimilarOrder = $this->findSimilarOrder($request->get('date'),$request->get('recipe_id'));
+
+                if (!$existsSimilarOrder) {
+                    $order = new Order();
+                    $order->fill(request()->all());
+                    $order->save();
+                    DB::commit();
+                    return new OrderResource($order);
+                }
+
+                return response()->json(['message' => 'Ya existe una orden con el mismo menu y fecha'],411);
             }
             return response()->json(['message' => 'Detalle de contracto {$detail->contract->contract_code} no se puede guardar'], 404);
         } catch (Exception $e) {
@@ -140,5 +147,16 @@ class OrderController extends Controller
         }
 
         return response()->json(['message' => 'Detalle de contrato no encontrado'], 404);
+    }
+
+
+    /**
+     * Private functions
+     */
+    private function findSimilarOrder($date,$recipeId)
+    {
+        return  Order::where('date',$date)->where('recipe_id',$recipeId)->first() ?
+                    Order::where('date',$date)->where('recipe_id',$recipeId)->first() :
+                    false;
     }
 }

@@ -35,7 +35,8 @@ class OrderRequest extends FormRequest implements ValidationInterface
     {
         return [
             'customer_contract_detail_id' => ['required','exists:customer_contract_details,id',new EqualValue($this->route('detail'))],
-            'date' => 'required|date_format:Y-m-d|unique:orders,date',
+            'recipe_id' => 'required|exists:recipes,id',
+            'date' => 'required|date_format:Y-m-d',
             'count' => 'required|integer',
             'state' => 'required|in:pendiente,entregado,cancelado'
         ];
@@ -46,6 +47,7 @@ class OrderRequest extends FormRequest implements ValidationInterface
     {
         $orderId = $this->route('order');
         $rules = $this->validateOnSave();
+        $rules['recipe_id'] = 'required|exists:recipes,id';
         $rules['date'] = 'required|date_format:Y-m-d|unique:orders,date,'.$orderId;
         return $rules;
     }
