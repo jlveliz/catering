@@ -27,7 +27,7 @@ class CreateTableCustomer extends Migration
                 $table->string('email',50)->unique();
                 $table->string('address',300);
                 $table->string('legal_representant',50);
-                $table->enum('payment_method',[ 'efectivo', 'transferencia', 'tarjeta-credito-debito' ]);
+                $table->integer('payment_method_id');
                 $table->enum('cut_invoice',['inicio_mes','fin_mes','cada_quincena']);
                 $table->integer('user_created_at');
                 $table->timestamps();

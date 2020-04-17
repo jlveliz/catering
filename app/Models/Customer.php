@@ -17,7 +17,7 @@ class Customer extends Model
         'email',
         'address',
         'legal_representant',
-        'payment_method',
+        'payment_method_id',
         'cut_invoice',
         'user_created_at'
     ];

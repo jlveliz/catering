@@ -3,16 +3,12 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Catering\Models\Customer;
+use Catering\Models\PaymentMethod;
 use Catering\Models\User;
 use Faker\Generator as Faker;
 
 $factory->define(Customer::class, function (Faker $faker) {
 
-    $payMethods = [
-        'efectivo',
-        'transferencia',
-        'tarjeta-credito-debito'
-    ];
 
     $cuts = [
         'inicio_mes',
@@ -31,7 +27,7 @@ $factory->define(Customer::class, function (Faker $faker) {
         'mobile' => $faker->phoneNumber,
         'address' => $faker->address,
         'legal_representant' => $faker->name .' '. $faker->lastName,
-        'payment_method' => $payMethods[array_rand($payMethods)],
+        'payment_method_id' => PaymentMethod::all()->random(1)->first()->id,
         'cut_invoice' => $cuts[array_rand($cuts)],
         'user_created_at' => User::all()->random(1)->first()->id,
         'created_at' => now(),

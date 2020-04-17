@@ -43,7 +43,7 @@ class CustomerRequest extends FormRequest implements ValidationInterface
             'email' => 'required|email|unique:customers,email',
             'address' => 'required|max:300',
             'legal_representant' => 'required_if:is_company,1|max:50|unique:customers,legal_representant',
-            'payment_method' => 'required|in:efectivo,transferencia,tarjeta-credito-debito',
+            'payment_method_id' => 'required|exists:payment_methods,id',
             'cut_invoice' => 'required|in:inicio_mes,fin_mes,cada_quincena',
             'user_created_at' => 'required|exists:users,id'
         ];
