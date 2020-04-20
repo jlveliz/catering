@@ -43,3 +43,4 @@ Route::resource('inventory-orders.details', 'InventoryOrderDetailController');
 Route::resource('recipes', 'RecipeController');
 Route::resource('planifications', 'RecipePlanificationController');
 Route::resource('payment-methods', 'PaymentMethodController');
+Route::resource('invoices', 'InvoiceController');

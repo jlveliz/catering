@@ -72,10 +72,13 @@ class EmployeeController extends Controller
 
         try {
             $employee = Employee::find($id);
-            $employee->fill($request->all());
-            $employee->saveOrFail();
-            DB::commit();
-            return new EmployeeResource($employee);
+            if ($employee) {
+                $employee->fill($request->all());
+                $employee->saveOrFail();
+                DB::commit();
+                return new EmployeeResource($employee);
+            }
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
         }catch(Exception $e) {
             DB::rollback();
             return response()->json(['message' => 'Hubo un error al actualizar el empleado, intente nuevamente'],411);
