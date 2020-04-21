@@ -5,6 +5,7 @@ namespace Catering\Http\Controllers;
 use Catering\Http\Requests\InvoiceRequest;
 use Catering\Http\Resources\InvoiceResource;
 use Catering\Models\Invoice;
+use Catering\Models\Sequential;
 use Illuminate\Http\Request;
 use Exception;
 use DB;
@@ -35,6 +36,10 @@ class InvoiceController extends Controller
         try {
             $invoice = new Invoice();
             $invoice->fill($request->all());
+            //Create code
+            $sequential = new Sequential();
+            $invoice->code = $sequential->createCode('invoice');
+
             $invoice->saveOrFail();
             DB::commit();
             return new InvoiceResource($invoice);
