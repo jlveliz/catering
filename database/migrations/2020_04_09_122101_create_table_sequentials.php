@@ -16,7 +16,7 @@ class CreateTableSequentials extends Migration
         if (!Schema::hasTable('sequentials')) {
             Schema::create('sequentials', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->enum('type',['inv-i','inv-o','contract']);
+                $table->enum('type',['inv-i','inv-o','contract','invoice']);
                 $table->integer('value');
                 $table->timestamps();
             });

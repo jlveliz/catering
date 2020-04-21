@@ -189,6 +189,38 @@ class SettingsTableSeeder extends Seeder
                 'lock' => 1
             ]);
         }
+
+        // Representante Legal
+        $legal = $this->findSetting('legal_representant');
+        if (!$legal) {
+            Setting::create([
+                'key' => 'legal_representant',
+                'value' => 'Representante Legal',
+                'lock' => 1
+            ]);
+        }
+
+        // Invoice
+        $taxIdentification = $this->findSetting('tax_identification');
+        if (!$taxIdentification) {
+            Setting::create([
+                'key' => 'tax_identification',
+                'value' => '9999999999',
+                'lock' => 1
+            ]);
+        }
+
+        //Invoice Sequential Initial
+        $invoiceInitSequential = $this->findSetting('invoice_init_sequential');
+        if(!$invoiceInitSequential){
+            Setting::create([
+                'key' => 'invoice_init_sequential',
+                'value' => 0,
+                'lock' => 1
+            ]);
+        }
+
+
     }
 
     private function findSetting($keyVal)

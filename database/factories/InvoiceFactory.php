@@ -5,6 +5,7 @@
 use Catering\Models\Customer;
 use Catering\Models\Invoice;
 use Catering\Models\PaymentMethod;
+use Catering\Models\Sequential;
 use Catering\Models\User;
 use Faker\Generator as Faker;
 
@@ -12,8 +13,12 @@ $factory->define(Invoice::class, function (Faker $faker) {
 
     $states = ['generada-manualmente','generada-automatica','pagada','mora','anulada'];
 
+    $sequential = new Sequential();
+    $code = $sequential->createCode('invoice');
+
     return [
         'customer_id' => Customer::all()->random(1)->first()->id,
+        'code' => $code,
         'detail' => 'Pago de Factura',
         'state' =>  $states[array_rand($states)],
         'pay_before_at' => $faker->date('Y-m-d'),

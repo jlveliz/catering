@@ -24,10 +24,14 @@ class Sequential extends Model
     public $types = [
         'inv-i',
         'inv-o',
-        'contract'
+        'contract',
+        'invoice'
     ];
 
     private $base = "0000";
+
+    private $baseInvoice = "000000000";
+
 
     private $initialInv = "IN";
 
@@ -42,6 +46,9 @@ class Sequential extends Model
         switch ($this->type) {
             case 'contract':
                 return $this->generateCodeContract();
+                break;
+            case 'invoice':
+                return $this->generateCodeInvoice();
                 break;
             default:
                 return $this->generateCodeForInventory();
@@ -100,6 +107,31 @@ class Sequential extends Model
         return $business.'-'.$currentYear.'-'.$sequential;
     }
 
+    private function generateCodeInvoice()
+    {
+        $lastSequential = null;
+        //Busca secuencial en tabla de secuencias
+        $lastSequentialOnTable = $this->getLastSequential();
+        if($lastSequentialOnTable > 0) {
+            $lastSequential = $lastSequentialOnTable;
+            //Busca secuencial en configuracion
+        } elseif ($this->getLastSettingSequential()) {
+            $lastSequential = $this->getLastSettingSequential()->value;
+        } else {
+            $lastSequential = 0;
+        }
+
+        $currentSequential = (int)$lastSequential + 1;
+        $sequential = $this->formatSequential($currentSequential);
+
+        /**
+         * Save Sequential
+         */
+        $this->saveSequential($currentSequential);
+
+        return '001-001-'.$sequential;
+    }
+
 
 
     /**
@@ -113,6 +145,11 @@ class Sequential extends Model
                     0;
     }
 
+    private function getLastSettingSequential()
+    {
+        return Setting::where('key','invoice_init_sequential')->first();
+    }
+
 
     /**
      * Format a sequential
@@ -123,7 +160,11 @@ class Sequential extends Model
     private function formatSequential($sequential)
     {
         $sequential = strval($sequential);
-        return substr_replace($this->base,$sequential,3);
+        if ($this->type == 'invoice') {
+            return substr_replace($this->baseInvoice, $sequential,8);
+        } else {
+            return substr_replace($this->base, $sequential,3);
+        }
 
     }
 
