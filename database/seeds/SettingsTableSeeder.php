@@ -212,7 +212,7 @@ class SettingsTableSeeder extends Seeder
 
         //Invoice Sequential Initial
         $invoiceInitSequential = $this->findSetting('invoice_init_sequential');
-        if(!$invoiceInitSequential){
+        if (!$invoiceInitSequential) {
             Setting::create([
                 'key' => 'invoice_init_sequential',
                 'value' => 0,
@@ -220,7 +220,45 @@ class SettingsTableSeeder extends Seeder
             ]);
         }
 
+        //Invoice Date Generation Inicio de mes
+        $invoiceDateGenerationBeginMonth = $this->findSetting('invoice_generation_begin_month');
+        if (!$invoiceDateGenerationBeginMonth) {
+            Setting::create([
+                'key' => 'invoice_generation_begin_month',
+                'value' => 29,
+                'lock' => 1
+            ]);
+        }
 
+        //Invoice Date Generation Fin de mes
+        $invoiceDateGenerationEndMonth = $this->findSetting('invoice_generation_end_month');
+        if (!$invoiceDateGenerationEndMonth) {
+            Setting::create([
+                'key' => 'invoice_generation_end_month',
+                'value' => 25,
+                'lock' => 1
+            ]);
+        }
+
+        //Invoice Generation Cada quince
+        $invoiceDateGenerationEach15Days = $this->findSetting('invoice_each_fifteen_days');
+        if (!$invoiceDateGenerationEach15Days) {
+            Setting::create([
+                'key' => 'invoice_each_fifteen_days',
+                'value' => 11,
+                'lock' => 1
+            ]);
+        }
+
+        //Dias de proroga por pago de una factura
+        $waitForPayInvoices = $this->findSetting('wait_for_pay_invoices');
+        if (!$waitForPayInvoices) {
+            Setting::create([
+                'key' => 'wait_for_pay_invoices',
+                'value' => 11,
+                'lock' => 1
+            ]);
+        }
     }
 
     private function findSetting($keyVal)
