@@ -35,4 +35,9 @@ class Invoice extends Model
     {
         return $this->belongsTo('Catering\Models\PaymentMethod', 'pay_method_id');
     }
+
+    public function details()
+    {
+        return $this->hasMany('Catering\Models\InvoiceDetail', 'invoice_id');
+    }
 }

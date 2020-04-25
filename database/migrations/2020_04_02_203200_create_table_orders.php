@@ -22,7 +22,9 @@ class CreateTableOrders extends Migration
                 $table->enum('state',[
                     'pendiente',
                     'entregado',
-                    'cancelado'
+                    'cancelado',
+                    'facturado',
+                    'mora'
                 ]);
                 $table->timestamps();
             });

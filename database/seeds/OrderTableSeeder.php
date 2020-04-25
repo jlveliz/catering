@@ -15,7 +15,7 @@ class OrderTableSeeder extends Seeder
     public function run()
     {
         $detailsContract = CustomerContractDetail::all();
-        $states = ['pendiente','entregado','cancelado'];
+        $states = ['pendiente','entregado','cancelado','facturado','mora'];
 
         foreach ($detailsContract as $key => $detail) {
             $recipeId = Recipe::all()->random(1)->first()->id;

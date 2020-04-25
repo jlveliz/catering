@@ -44,3 +44,4 @@ Route::resource('recipes', 'RecipeController');
 Route::resource('planifications', 'RecipePlanificationController');
 Route::resource('payment-methods', 'PaymentMethodController');
 Route::resource('invoices', 'InvoiceController');
+Route::resource('invoices.details', 'InvoiceDetailController');
