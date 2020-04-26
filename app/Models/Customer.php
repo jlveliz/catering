@@ -52,9 +52,5 @@ class Customer extends Model
         return $this->getCurrentContract() ?  true : false;
     }
 
-    public function getAllCanBill()
-    {
-        $currentDate = date('Y-m-d');
-        return $this->whereRaw( $this->id . " = (  select cc.customer_id from customer_contracts cc where cc.start_date <=  {$currentDate}  and cc.end_date >= {$currentDate} ) ");
-    }
+
 }

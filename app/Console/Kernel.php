@@ -27,6 +27,10 @@ class Kernel extends ConsoleKernel
     {
         //Envia a crear ordenes todos los dias a las 3 AM
         $schedule->command('create-orders:current')->dailyAt('03:00');
+
+        //Para generar facturas de acuerdo a la configuracion
+        $setting= 0;
+
     }
 
     /**
