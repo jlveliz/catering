@@ -41,7 +41,7 @@ class ManageInvoices extends Command
          * Verifica fecha actual
          *
          * si la fecha actual esta entre el 1-3 de cada mes
-         * buscara a los clientes que tienen corte en esas fechas
+         * buscara a los clientes que tienen corte en esas fechas y pueden facturar
          *
          * Si la fecha actual esta entre el 14-16 de cada mes buscara a los clientes
          * que tienen corte de fecha cada quincena - SIN DUDA LOS QUE QUINCENA SON ALGO ESPECIAL
