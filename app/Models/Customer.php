@@ -53,4 +53,10 @@ class Customer extends Model
     }
 
 
+    public function getOrdersToBill()
+    {
+        return (new Order())->getOrdersByCustomerCurrentContract($this->id);
+    }
+
+
 }

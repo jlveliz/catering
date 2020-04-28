@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\CreateOrders::class,
         Commands\CreateAppResource::class,
+        Commands\ManageInvoices::class,
     ];
 
     /**

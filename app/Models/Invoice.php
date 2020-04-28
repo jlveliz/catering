@@ -40,4 +40,10 @@ class Invoice extends Model
     {
         return $this->hasMany('Catering\Models\InvoiceDetail', 'invoice_id');
     }
+
+    /**
+     * Functions
+     */
+
+
 }
