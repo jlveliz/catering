@@ -49,7 +49,7 @@ class CustomerContractRequest extends FormRequest implements ValidationInterface
     {
         $contractId = $this->route('contract');
         $rules = $this->validateOnSave();
-        $rules['contract_code'] = 'required|max:30|unique:customer_contracts,contract_code,'.$contractId;
+        $rules['contract_code'] = 'max:30|unique:customer_contracts,contract_code,'.$contractId;
         return $rules;
     }
 }

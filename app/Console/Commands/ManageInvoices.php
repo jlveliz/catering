@@ -135,9 +135,17 @@ class ManageInvoices extends Command
     private function createDescription()
     {
         $type = $this->argument('opt');
-        $date = date('n');
+        $month = date('n');
 
-        $description =  __('invoice.description');
+        //Para saber si tiene una facturacion el mismo mes
+        // usado para los que facturan cada quince dias
+        if ($type ==  'inicio_mes' || $type == 'fin_mes'){
+            $description = __('description-month');
+        } elseif($type ==  'cada_quincena' && date('j') > 15) {
+            $description= __('description.description-fifteen-1');
+        } else {
+            $description= __('description.description-fifteen-2');
+        }
 
 
         /**
@@ -145,14 +153,14 @@ class ManageInvoices extends Command
          */
         switch ($type) {
             case 'inicio_mes':
-                $date++;
-                $description .=  __('invoice.months.' . $date) . ' de ' . date('Y');
+                $month++;
+                $description .=  __('invoice.months.' . $month) . ' de ' . date('Y');
                 break;
             case 'fin_mes':
-                $description .=  __('invoice.months.' . $date) . ' de ' . date('Y');
+                $description .=  __('invoice.months.' . $month) . ' de ' . date('Y');
                 break;
             default:
-                # code...
+                $description .=  __('invoice.months.' . $month) . ' de ' . date('Y');
                 break;
         }
 

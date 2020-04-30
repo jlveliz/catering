@@ -26,7 +26,6 @@ class CustomerContractDetailTableSeeder extends Seeder
         ])->get();
 
 
-
         //Se ingresa cada contrato
         foreach ($customersContract as  $contract) {
             //Por cada contrato se ingresa una comida

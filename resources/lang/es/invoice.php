@@ -6,7 +6,9 @@
  */
 
  return [
-    'description' => 'Servicio de Catering del mes de ',
+    'description-month' => 'Servicio de Catering del mes de ',
+    'description-fifteen-1' => 'Servicio de Catering de la primera quincena del mes de ',
+    'description-fifteen-2' => 'Servicio de Catering de la segunda quincena del mes de ',
     'months' => [
         1 => 'Enero',
         2 => 'Febrero',
