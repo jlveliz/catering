@@ -22,4 +22,9 @@ class InvoiceDetail extends Model
     {
         return $this->belongsTo('Catering\Models\Invoice', 'invoice_id');
     }
+
+    public function order()
+    {
+        return $this->belongsTo('Catering\Models\Order', 'order_id');
+    }
 }

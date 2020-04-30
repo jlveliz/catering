@@ -48,6 +48,7 @@ class ManageInvoices extends Command
         'inicio_mes',
         'fin_mes',
         'cada_quincena',
+        'caducar'
     ];
 
     /**
@@ -73,8 +74,70 @@ class ManageInvoices extends Command
 
         $type = $this->argument('opt');
 
+        if ($type == 'caducar') {
+            $this->expireInvoices();
+        } else {
+            $this->createInvoices($type);
+        }
 
-        /*
+
+
+    }
+
+    private function expireInvoices()
+    {
+        $invoices = Invoice::whereRaw(
+            "(
+                state = 'generada-automatica'
+                or state = 'generada-manualmente'
+            )
+                and pay_before_at  < DATE_FORMAT(now(),'%Y-%m-%d') "
+        )->get();
+
+        if($invoices->count()){
+
+            foreach ($invoices as $key => $invoice) {
+                $invoice->state = 'mora';
+                $messInvoice = "La factura del cliente {$invoice->customer->name} con codigo {$invoice->code}";
+                if($invoice->save()) {
+                    foreach ($invoice->details as $key => $detail) {
+                        $order = $detail->order()->first();
+                        $order->state = 'mora';
+                        $mess = "Orden {$order->id} con fecha {$order->date}";
+                        if($order->update()) {
+                            $mess.= " ha sido puesta en mora ";
+                            $this->info($mess);
+                            Log::info($mess);
+                        } else {
+                            $mess.= " no pudo ser actualizada";
+                            $this->error($mess);
+                            Log::error($mess);
+                        }
+                    }
+                    $messInvoice.= ' Se ha puesto en mora ';
+                    $this->info($messInvoice);
+                    Log::info($messInvoice);
+                } else {
+                    $messInvoice .= ' No se ha puesto en mora por errores';
+                    $this->error($messInvoice);
+                    Log::error($messInvoice);
+                }
+            }
+
+
+        } else {
+            $this->info("No hay facturas por caducar");
+            Log::info("No hay facturas por caducar");
+        }
+    }
+
+    /**
+     * Genera Facturas segun el tipo o la fecha de corte de los clientes
+     */
+
+    private function createInvoices($type)
+    {
+          /*
          Extraigo clientes donde la fecha de corte sea igual al argumento ingresado
          y que tengan un contrato actual
         */
@@ -98,7 +161,7 @@ class ManageInvoices extends Command
     }
 
 
-    public function generateInvoice($customer, $orders)
+    private function generateInvoice($customer, $orders)
     {
         $invoice = new Invoice();
         $invoice->customer_id = $customer->id;
