@@ -10,6 +10,7 @@ use Catering\Models\Sequential;
 use Catering\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 
 class ManageInvoices extends Command
 {
@@ -46,7 +47,7 @@ class ManageInvoices extends Command
     private $types = [
         'inicio_mes',
         'fin_mes',
-        'cada_quincena'
+        'cada_quincena',
     ];
 
     /**
@@ -90,8 +91,9 @@ class ManageInvoices extends Command
             $orders = $customer->getOrdersToBill();
             if ($orders->count() > 0) {
                 $invoice = $this->generateInvoice($customer, $orders);
+            } else {
+                $this->info("El cliente {$customer->name} no tiene ordenes que facturar");
             }
-            $this->info("El cliente {$customer->name} no tiene ordenes que facturar");
         }
     }
 
@@ -121,6 +123,8 @@ class ManageInvoices extends Command
                     $order->update();
                 }
             }
+            $this->info(" {$customer->name}  ha Facturado {$orders->count()} ordenes para el corte de {$invoice->detail}");
+            Log::info("{$customer->name}  ha Facturado {$orders->count()} ordenes para el corte de {$invoice->detail}");
         }
 
     }
@@ -140,11 +144,11 @@ class ManageInvoices extends Command
         //Para saber si tiene una facturacion el mismo mes
         // usado para los que facturan cada quince dias
         if ($type ==  'inicio_mes' || $type == 'fin_mes'){
-            $description = __('description-month');
+            $description = __('invoice.description-month');
         } elseif($type ==  'cada_quincena' && date('j') > 15) {
-            $description= __('description.description-fifteen-1');
+            $description= __('invoice.description-fifteen-2');
         } else {
-            $description= __('description.description-fifteen-2');
+            $description= __('invoice.description-fifteen-1');
         }
 
 
