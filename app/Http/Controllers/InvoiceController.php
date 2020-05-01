@@ -2,6 +2,7 @@
 
 namespace Catering\Http\Controllers;
 
+use Catering\Events\InvoiceGenerated;
 use Catering\Http\Requests\InvoiceRequest;
 use Catering\Http\Resources\InvoiceResource;
 use Catering\Models\Invoice;
@@ -39,9 +40,9 @@ class InvoiceController extends Controller
             //Create code
             $sequential = new Sequential();
             $invoice->code = $sequential->createCode('invoice');
-
             $invoice->saveOrFail();
             DB::commit();
+            event(new InvoiceGenerated($invoice));
             return new InvoiceResource($invoice);
         }catch(Exception $e) {
             DB::rollback();

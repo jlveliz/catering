@@ -2,10 +2,15 @@
 
 namespace Catering\Models;
 
+use Catering\Notifications\InvoicePaid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Customer extends Model
 {
+
+    use Notifiable;
+
     protected $fillable = [
         'identification_type',
         'identification',
@@ -39,6 +44,11 @@ class Customer extends Model
         return $this->hasMany('Catering\Models\CustomerContract','customer_id');
     }
 
+    public function paymethod()
+    {
+        return $this->belongsTo('Catering\Models\PaymentMethod', 'payment_method_id');
+    }
+
     /**
      * FUNCTIONS
      */
@@ -56,6 +66,11 @@ class Customer extends Model
     public function getOrdersToBill()
     {
         return (new Order())->getOrdersByCustomerCurrentContract($this->id);
+    }
+
+    public function sendInvoice(Invoice $invoice)
+    {
+        $this->notify( new InvoicePaid($invoice));
     }
 
 

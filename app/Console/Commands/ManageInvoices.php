@@ -3,6 +3,7 @@
 namespace Catering\Console\Commands;
 
 use Carbon\Carbon;
+use Catering\Events\InvoiceGenerated;
 use Catering\Models\Customer;
 use Catering\Models\Invoice;
 use Catering\Models\InvoiceDetail;
@@ -154,6 +155,7 @@ class ManageInvoices extends Command
             $orders = $customer->getOrdersToBill();
             if ($orders->count() > 0) {
                 $invoice = $this->generateInvoice($customer, $orders);
+                if ($invoice) event(new InvoiceGenerated($invoice));
             } else {
                 $this->info("El cliente {$customer->name} no tiene ordenes que facturar");
             }
@@ -188,6 +190,7 @@ class ManageInvoices extends Command
             }
             $this->info(" {$customer->name}  ha Facturado {$orders->count()} ordenes para el corte de {$invoice->detail}");
             Log::info("{$customer->name}  ha Facturado {$orders->count()} ordenes para el corte de {$invoice->detail}");
+            return $invoice;
         }
 
     }
