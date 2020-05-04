@@ -4,15 +4,15 @@ Vue.use(VueRouter);
 
 
 // Components
-import Dashboard from './components/dashboard/home';
+import LoginViewComponent from './components/login/login';
 
 const router = new VueRouter({
     mode:'history',
     routes: [
         {
             path:'/',
-            name:'app',
-            component:Dashboard,
+            name:'login',
+            component:LoginViewComponent,
 
         },
     ]
