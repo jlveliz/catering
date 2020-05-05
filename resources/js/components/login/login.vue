@@ -14,6 +14,9 @@
               <p class="text-muted text-center p-b-5">Ingrese su correo y contraseña</p>
             </b-col>
           </b-row>
+
+          <b-alert :show="hasError" dismissible variant="danger" class="background-danger">{{error}}</b-alert>
+
           <b-form-group class="form-primary" label-for="email">
             <b-form-input id="email" v-model="form.email" trim></b-form-input>
             <span class="form-bar"></span>
@@ -43,9 +46,7 @@
 </template>
 
 <script>
-
-import Auth from './../../services/auth';
-
+import { login, setToken } from "./../../services/Auth";
 
 export default {
   name: "LoginView",
@@ -55,16 +56,37 @@ export default {
         email: "",
         password: "",
         remember: false
-      }
+      },
+      error: "",
+      hasError: false
     };
   },
-  methods:{
-    doLogin(e){
+  methods: {
+    doLogin(e) {
       e.preventDefault();
       e.stopPropagation();
-      
-      debugger
-      (new Auth()).login(this.form.email,this.form.password,this.form.remember)
+
+      let promise = login(
+        this.form.email,
+        this.form.password,
+        this.form.remember
+      );
+      promise
+        .then(result => {
+          setToken(result.data.success.token);
+          this.$store.commit("SET_LAYOUT", "app-layout");
+          this.$router.push({name:'home'});
+        })
+        .catch(exception => {
+          let response = exception.response;
+          let status = response.status;
+          if (status == 422) {
+            this.error = "Usuario o Clave erroneo";
+          } else {
+            this.error = response.data.message;
+          }
+          this.hasError = true;
+        });
     }
   }
 };
