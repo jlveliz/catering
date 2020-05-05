@@ -16,7 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './../css/app.css';
 
-//Main Settings
+//Configure Plugins
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
