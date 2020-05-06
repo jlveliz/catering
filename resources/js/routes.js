@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import {store} from './store'
 Vue.use(VueRouter);
 
 
@@ -14,11 +15,21 @@ const router = new VueRouter({
             path:'/',
             name:'login',
             component:LoginViewComponent,
+            beforeEnter: (to, from, next) => {
+                if (store.getters.loggedIn) {
+                    next({name:'home'});
+                } else {
+                    next();
+                }
+            }
         },
         {
             path:'/home',
             name:'home',
-            component:HomeViewComponent
+            component:HomeViewComponent,
+            meta: {
+                requiresAuth:true
+            }
         }
     ]
 })

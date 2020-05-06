@@ -91,4 +91,11 @@ class LoginController extends Controller
     }
 
 
+    public function logout(Request $request)
+    {
+        $logout = $request->user()->token()->revoke();
+        return response()->json(['message' => 'Usuario fuera'],200);
+    }
+
+
 }

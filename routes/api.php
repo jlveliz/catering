@@ -18,8 +18,9 @@ use Illuminate\Http\Request;
 // });
 
 
-Route::post('user-info', 'Api\LoginController@getInfo')->middleware('auth:api');
 Route::post('login', 'Api\LoginController@login');
+Route::post('user-info', 'Api\LoginController@getInfo')->middleware('auth:api');
+Route::post('logout','Api\LoginController@logout')->middleware('auth:api');
 
 
 Route::resource('users', 'UserController');
