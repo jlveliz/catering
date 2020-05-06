@@ -75,6 +75,7 @@ export default {
         .then(response => {
             let uInfo = this.$store.dispatch('getUser');
             uInfo.then( response => {
+                this.$store.commit('SET_LAYOUT','app-layout');
                 this.$router.push({name:'home'});
             })
         })

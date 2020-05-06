@@ -22,6 +22,7 @@ export default {
     },
     logout() {
         this.$store.dispatch('destroyToken').then( response => {
+            this.$store.commit('SET_LAYOUT','simple-layout');
             this.$router.push({name:'login'})
         })
     }
