@@ -28,6 +28,5 @@ export default {
   created() {
     this.setLayout();
   },
-  mounted() {}
 };
 </script>

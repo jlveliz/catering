@@ -13,11 +13,11 @@
 <script>
 import("./../../css/simple.css");
 
-import Helpers from "./../helpers";
+import {Helpers} from "./../helpers";
 
 export default {
   created() {
-    new Helpers().setBodyTheme("theme1");
+    Helpers.setBodyTheme("theme1");
   }
 };
 </script>

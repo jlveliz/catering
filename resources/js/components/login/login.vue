@@ -46,7 +46,6 @@
 </template>
 
 <script>
-
 export default {
   name: "LoginView",
   data() {
@@ -65,26 +64,22 @@ export default {
       e.preventDefault();
       e.stopPropagation();
 
-      let promise = this.$store.dispatch('retrieveToken',
-        {
-            email:this.form.email,
-            password:this.form.password,
-            remember: this.form.remember
-        });
+      let promise = this.$store.dispatch("retrieveToken", {
+        email: this.form.email,
+        password: this.form.password,
+        remember: this.form.remember
+      });
       promise
         .then(response => {
-            let uInfo = this.$store.dispatch('getUser');
-            uInfo.then( response => {
-                this.$store.commit('SET_LAYOUT','app-layout');
-                this.$router.push({name:'home'});
-            })
+          this.$store.commit("SET_LAYOUT", "app-layout");
+          this.$router.push({ name: "home" });
         })
         .catch(exception => {
           let response = exception.response;
           let status = response.status;
           if (status == 422) {
             this.error = "Usuario o Clave erroneo";
-            this.form.password = '';
+            this.form.password = "";
             this.form.remember = false;
           } else {
             this.error = response.data.message;

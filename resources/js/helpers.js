@@ -1,9 +1,18 @@
 
-export default class Helpers{
+'use strict';
 
-    setBodyTheme(theme){
+export const Helpers = {
+
+    setBodyTheme(theme) {
         const body = document.querySelector('body');
-        body.setAttribute('themebg-pattern',theme);
+        body.setAttribute('themebg-pattern', theme);
+    },
+
+    removeBodyTheme() {
+        const body = document.querySelector('body');
+        body.removeAttribute('themebg-pattern');
     }
+
+
 
 }
