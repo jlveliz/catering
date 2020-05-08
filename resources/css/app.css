@@ -3214,10 +3214,11 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
     background-color: transparent
 }
 
-.header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification i {
-    font-size: 15px;
+.header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification svg {
+    /* font-size: 15px;
     margin-left: 0;
-    margin-right: 5px
+    margin-right: 5px */
+    width: 17px;
 }
 
 .header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification li {

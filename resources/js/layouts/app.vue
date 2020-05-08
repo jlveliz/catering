@@ -1,16 +1,30 @@
 <template>
-  <div class="row">
-    <h2>App Layout</h2>
-    <p>{{user}}</p>
-    <button @click="logout()">Salir</button>
-    <router-view></router-view>
+  <div
+    id="pcoded"
+    class="pcoded isCollapsed"
+    theme-layout="vertical"
+    vertical-placement="left"
+    vertical-layout="wide"
+  >
+    <div class="pcoded-container navbar-wrapper">
+      <header-bar :user="user"></header-bar>
+      <h2>App Layout</h2>
+      <button @click="logout()">Salir</button>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import {Helpers} from "./../helpers";
+import { Helpers } from "./../helpers";
+
+//Components
+import HeaderBar from "./parts/HeaderBarComponent";
 
 export default {
+  components: {
+    HeaderBar
+  },
   data() {
     return {
       user: {}
@@ -20,12 +34,6 @@ export default {
     getUser() {
       this.$store.dispatch("getUser").then(result => (this.user = result.data));
     },
-    logout() {
-      this.$store.dispatch("destroyToken").then(response => {
-        this.$store.commit("SET_LAYOUT", "simple-layout");
-        this.$router.push({ name: "login" });
-      });
-    }
   },
   created() {
     //Change Bg
