@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-header card">
       <h1>Soy Home o Dashboard</h1>
   </div>
 </template>

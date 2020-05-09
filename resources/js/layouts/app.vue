@@ -5,12 +5,21 @@
     theme-layout="vertical"
     vertical-placement="left"
     vertical-layout="wide"
+    pcoded-device-type="desktop"
+    vertical-nav-type="expanded"
+    vertical-effect="shrink"
+    vnavigation-view="view1"
+    fream-type="theme1"
+    layout-type="light"
   >
     <div class="pcoded-container navbar-wrapper">
       <header-bar :user="user"></header-bar>
-      <h2>App Layout</h2>
-      <button @click="logout()">Salir</button>
-      <router-view></router-view>
+      <div class="pcoded-main-container" style="margin-top:70px">
+        <div class="pcoded-wrapper">
+          <navbar-menu-component></navbar-menu-component>
+          <content-Component></content-Component>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,10 +29,14 @@ import { Helpers } from "./../helpers";
 
 //Components
 import HeaderBar from "./parts/HeaderBarComponent";
+import NavbarMenuComponent from "./parts/NavbarMenuComponent";
+import ContentComponent from "./parts/ContentComponent";
 
 export default {
   components: {
-    HeaderBar
+    HeaderBar,
+    NavbarMenuComponent,
+    ContentComponent
   },
   data() {
     return {
@@ -33,7 +46,7 @@ export default {
   methods: {
     getUser() {
       this.$store.dispatch("getUser").then(result => (this.user = result.data));
-    },
+    }
   },
   created() {
     //Change Bg
