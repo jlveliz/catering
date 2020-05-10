@@ -3,7 +3,7 @@
     id="pcoded"
     class="pcoded"
     nav-type="st2"
-    theme-layout="horizonal"
+    theme-layout="horizontal"
     horizontal-placement="top"
     horizontal-layout="widebox"
     pcoded-device-type="desktop"
