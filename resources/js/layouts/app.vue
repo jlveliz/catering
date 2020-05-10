@@ -1,14 +1,13 @@
 <template>
   <div
     id="pcoded"
-    class="pcoded isCollapsed"
-    theme-layout="vertical"
-    vertical-placement="left"
-    vertical-layout="wide"
+    class="pcoded"
+    nav-type="st2"
+    theme-layout="horizonal"
+    horizontal-placement="top"
+    horizontal-layout="widebox"
     pcoded-device-type="desktop"
-    vertical-nav-type="expanded"
-    vertical-effect="shrink"
-    vnavigation-view="view1"
+    hnavigation-view="view1"
     fream-type="theme1"
     layout-type="light"
   >

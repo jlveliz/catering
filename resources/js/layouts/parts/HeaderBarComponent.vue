@@ -1,11 +1,12 @@
 <template>
   <nav
-    class="navbar header-navbar pcoded-header iscollapsed"
-    header-theme="themelight1"
+    class="navbar header-navbar pcoded-header"
+    header-theme="theme1"
     pcoded-header-position="fixed"
   >
     <div class="navbar-wrapper">
-      <div class="navbar-logo" logo-theme="theme6">
+      <div class="navbar-logo" logo-theme="theme1">
+        <!-- TODO LOGO -->
         <p class="text-center text-white col-sm-12">Catering</p>
       </div>
       <div class="navbar-container container-fluid d-inline">
@@ -25,10 +26,10 @@ import UserProfile from "./UserProfileComponent";
 export default {
   name: "HeaderBar",
   props: {
-      user: {
-          type: Object,
-          default: {}
-      }
+    user: {
+      type: Object,
+      default: {}
+    }
   },
   components: {
     UserProfile
