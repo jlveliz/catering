@@ -411,7 +411,8 @@ code {
     font-size: 13px
 }
 
-.page-header.card .page-header-title i {
+.page-header.card .page-header-title i,
+.page-header.card .page-header-title svg {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
@@ -430,7 +431,8 @@ code {
     margin-right: 20px;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
+    padding:2px
 }
 
 .page-header.card .breadcrumb {
