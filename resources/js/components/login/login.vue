@@ -18,12 +18,29 @@
           <b-alert :show="hasError" dismissible variant="danger" class="background-danger">{{error}}</b-alert>
 
           <b-form-group class="form-primary" label-for="email">
-            <b-form-input id="email" v-model="form.email" trim></b-form-input>
+            <b-form-input
+              id="email"
+              v-model="form.email"
+              trim
+              required
+              :class="{'fill': fStates.email || form.email}"
+              @focus="fStates.email = true"
+              @blur="fStates.email = false"
+            ></b-form-input>
             <span class="form-bar"></span>
             <label class="float-label">Email</label>
           </b-form-group>
           <b-form-group class="form-primary" label-for="password">
-            <b-form-input type="password" id="password" v-model="form.password" trim></b-form-input>
+            <b-form-input
+              type="password"
+              id="password"
+              v-model="form.password"
+              trim
+              required
+              :class="{'fill': fStates.password || form.password}"
+              @focus="fStates.password = true"
+              @blur="fStates.password = false"
+            ></b-form-input>
             <span class="form-bar"></span>
             <label class="float-label">Contraseña</label>
           </b-form-group>
@@ -56,7 +73,11 @@ export default {
         remember: false
       },
       error: "",
-      hasError: false
+      hasError: false,
+      fStates: {
+        email: false,
+        password: false
+      }
     };
   },
   methods: {

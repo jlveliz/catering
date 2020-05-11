@@ -10033,7 +10033,8 @@ body.horizontal-icon .pcoded[pcoded-device-type=desktop] .pcoded-navbar .pcoded-
     box-shadow: none
 }
 
-.form-material .form-control:focus~.form-bar:after, .form-material .form-control:focus~.form-bar:before {
+.form-material .form-control:focus~.form-bar:after,
+.form-material .form-control:focus~.form-bar:before {
     width: 50%
 }
 
