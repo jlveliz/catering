@@ -7,7 +7,9 @@
     <div class="navbar-wrapper">
       <div class="navbar-logo" logo-theme="theme1">
         <!-- TODO LOGO -->
-        <p class="text-center text-white col-sm-12">Catering</p>
+        <b-link :to="{name:'home'}" go>
+            <img src="./../../../images/svg/logo.svg" class="img-fluid">
+        </b-link>
       </div>
       <div class="navbar-container container-fluid d-inline">
         <ul class="nav-right">
@@ -37,5 +39,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+    .navbar-logo img {
+        width: 30%;
+    }
 </style>
