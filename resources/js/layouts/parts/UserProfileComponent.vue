@@ -12,7 +12,8 @@
     >
       <li>
         <a @click="logout()">
-          <log-out-icon></log-out-icon>Salir
+          <!-- <log-out-icon></log-out-icon> -->
+          Salir
         </a>
       </li>
     </ul>
@@ -20,7 +21,7 @@
 </template>
 
 <script>
-import { LogOutIcon } from "vue-feather-icons";
+// import { LogOutIcon } from "vue-feather-icons";
 export default {
   props: {
     username: {
@@ -29,7 +30,7 @@ export default {
     }
   },
   components: {
-    LogOutIcon
+    // LogOutIcon
   },
   methods: {
     logout() {

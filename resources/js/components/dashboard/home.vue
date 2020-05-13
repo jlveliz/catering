@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import { HomeIcon } from "vue-feather-icons";
+// import { HomeIcon } from "vue-feather-icons";
 import ContentHeaderComponent from "./../../layouts/parts/ContentHeaderComponent";
 import ContentMainContentComponent from "./../../layouts/parts/ContentMainContentComponent";
 export default {
   name: "Dashboard",
   components: {
-    HomeIcon,
+    // HomeIcon,
     ContentHeaderComponent,
     ContentMainContentComponent
   }

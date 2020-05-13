@@ -8,6 +8,7 @@
 require('./bootstrap');
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import VueFeather from 'vue-feather';
 import { store } from './store';
 import router from './routes';
 
@@ -21,6 +22,7 @@ import '../sass/app.scss'
 //Configure Plugins
 // Vue.use(VueAxios, axiosInstance);
 Vue.use(BootstrapVue);
+Vue.use(VueFeather);
 Vue.use(IconsPlugin);
 
 
