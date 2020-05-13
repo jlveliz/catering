@@ -12,8 +12,7 @@
     >
       <li>
         <a @click="logout()">
-          <!-- <log-out-icon></log-out-icon> -->
-          Salir
+          <feather type="log-out"></feather>Salir
         </a>
       </li>
     </ul>
@@ -21,7 +20,6 @@
 </template>
 
 <script>
-// import { LogOutIcon } from "vue-feather-icons";
 export default {
   props: {
     username: {
@@ -43,5 +41,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+ul.show-notification li:hover {
+  background-color: #f1f1f1 !important;
+}
 </style>
