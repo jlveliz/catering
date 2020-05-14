@@ -24,7 +24,14 @@
 
 <script>
 export default {
-  name: "NavbarMenuComponent"
+  name: "NavbarMenuComponent",
+  created(){
+      console.log('hola');
+  },
+  mounted(){
+      console.log('montado');
+
+  }
 };
 </script>
 
