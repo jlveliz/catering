@@ -17,7 +17,7 @@
             <span class="pcoded-mtext">Navigation</span>
           </a>
         </li> -->
-        <li class="pcoded-hasmenu is-hover" subitem-icon="style1" dropdown-icon="style1" v-for="(menu, idx, key) in menus">
+        <li class="pcoded-hasmenu is-hover" subitem-icon="style1" dropdown-icon="style1" v-for="(menu, idx, key) in menus" v-bind="key">
           <a href="javascript:void(0)" class="waves-effect waves-dark">
             <span class="pcoded-micon">
               <i class="feather icon-sidebar"></i>
