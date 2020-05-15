@@ -25,6 +25,7 @@ Route::post('logout','Api\LoginController@logout')->middleware('auth:api');
 
 Route::resource('users', 'UserController');
 Route::resource('roles', 'RoleController');
+Route::resource('menus','MenuController');
 Route::resource('settings', 'SettingController');
 Route::resource('workplaces', 'WorkplaceController');
 Route::resource('employees','EmployeeController');

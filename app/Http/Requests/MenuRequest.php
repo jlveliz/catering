@@ -33,9 +33,9 @@ class MenuRequest extends FormRequest implements ValidationInterface
     public function validateOnSave()
     {
        return [
-            'name' => 'required|string|unique:menus,name',
+            'name' => 'required|string',
             'route_name' => 'required|string',
-            'parent_id' => 'required|exists:menus,id',
+            'parent_id' => 'exists:menus,id',
             'order' => 'required|integer',
             'enabled' => 'required|boolean'
        ];
@@ -43,9 +43,6 @@ class MenuRequest extends FormRequest implements ValidationInterface
 
     public function validateOnUpdate()
     {
-        $menuId = $this->route('menu');
-        $rules = $this->validateOnSave();
-        $rules['name'] = 'required|string|unique:menus,name,'.$menuId;
-        return $rules;
+        return $this->validateOnSave();
     }
 }
