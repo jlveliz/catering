@@ -9,12 +9,20 @@
   >
     <div class="pcoded-inner-navbar">
       <ul class="pcoded-item" item-border="true" item-border-style="none" subitem-border="true">
-        <li class="pcoded-hasmenu is-hover" subitem-icon="style1" dropdown-icon="style1">
+        <!-- <li class="pcoded-hasmenu is-hover" subitem-icon="style1" dropdown-icon="style1">
           <a href="javascript:void(0)" class="waves-effect waves-dark">
             <span class="pcoded-micon">
               <i class="feather icon-sidebar"></i>
             </span>
             <span class="pcoded-mtext">Navigation</span>
+          </a>
+        </li> -->
+        <li class="pcoded-hasmenu is-hover" subitem-icon="style1" dropdown-icon="style1" v-for="(menu, idx, key) in menus">
+          <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon">
+              <i class="feather icon-sidebar"></i>
+            </span>
+            <span class="pcoded-mtext">{{menu.name}}</span>
           </a>
         </li>
       </ul>
@@ -25,12 +33,24 @@
 <script>
 export default {
   name: "NavbarMenuComponent",
-  created(){
-      console.log('hola');
+  data() {
+    return {
+      menus: []
+    };
   },
-  mounted(){
-      console.log('montado');
-
+  methods: {
+    async loadMenu() {
+      const menus = await axios.get("/api/menus", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      });
+      return menus.data.data;
+    }
+  },
+  created() {
+    this.loadMenu().then(result => (this.menus = result));
+  },
+  mounted() {
+    console.log("montado");
   }
 };
 </script>
