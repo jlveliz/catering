@@ -16,13 +16,20 @@
             </span>
             <span class="pcoded-mtext">Navigation</span>
           </a>
-        </li> -->
-        <li class="pcoded-hasmenu is-hover" subitem-icon="style1" dropdown-icon="style1" v-for="(menu, idx, key) in menus" v-bind="key">
+        </li>-->
+        <li
+          class="pcoded-hasmenu is-hover"
+          subitem-icon="style1"
+          dropdown-icon="style1"
+          v-for="(menu, idx, key) in menus"
+          v-bind="key"
+        >
           <a href="javascript:void(0)" class="waves-effect waves-dark">
             <span class="pcoded-micon">
-              <i class="feather icon-sidebar"></i>
+              <feather :type="menu.icon" class="icon-sidebar" size="14"></feather>
             </span>
             <span class="pcoded-mtext">{{menu.name}}</span>
+            <feather type="chevron-down" class="icon-sidebar" size="12"></feather>
           </a>
         </li>
       </ul>
@@ -47,10 +54,7 @@ export default {
     }
   },
   created() {
-    this.loadMenu().then(result => (this.menus = result));
-  },
-  mounted() {
-    console.log("montado");
+    this.$store.dispatch("getMenus").then(result => (this.menus = result));
   }
 };
 </script>

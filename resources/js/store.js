@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
     state: {
         layout: 'simple-layout',
         token: localStorage.getItem('token') || null,
-        user: {}
+        user: {},
+        menus:[]
     },
     mutations: {
         SET_LAYOUT(state, payload) {
@@ -28,6 +29,12 @@ export const store = new Vuex.Store({
         },
         REMOVE_USER(state) {
             state.user = null
+        },
+        GET_MENUS(state,menus){
+            state.menus = menus
+        },
+        REMOVE_MENUS(state,menus){
+            state.menus = [];
         }
     },
     getters: {
@@ -39,6 +46,9 @@ export const store = new Vuex.Store({
         },
         getUser(state) {
             return state.user;
+        },
+        getMenus(state) {
+            return state.menus;
         }
     },
     actions: {
@@ -87,6 +97,7 @@ export const store = new Vuex.Store({
                             localStorage.removeItem('token')
                             context.commit('DESTROYTOKEN')
                             context.commit('REMOVE_USER')
+                            context.commit('REMOVE_MENUS')
 
                             resolve(response)
                         })
@@ -95,10 +106,19 @@ export const store = new Vuex.Store({
                             localStorage.removeItem('token')
                             context.commit('DESTROYTOKEN')
                             context.commit('REMOVE_USER')
+                            context.commit('REMOVE_MENUS')
                             reject(error)
                         })
                 })
 
+            }
+        },
+        async getMenus(context) {
+            if (context.getters.loggedIn) {
+                const menus = await axios.get("/api/menus", {
+                    headers: { Authorization: "Bearer " + context.state.token }
+                  });
+                return menus.data.data;
             }
         }
     }

@@ -3843,9 +3843,9 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
     top: 0
 }
 
-.pcoded li.pcoded-hasmenu[dropdown-icon=style1]>a:after {
+/* .pcoded li.pcoded-hasmenu[dropdown-icon=style1]>a:after {
     content: "\e844"
-}
+} */
 
 .pcoded li.pcoded-hasmenu.pcoded-trigger[dropdown-icon=style1]>a:after {
     content: "\e842"
@@ -4697,9 +4697,9 @@ body[themebg-pattern=theme6] {
     color: #666
 }
 
-.pcoded .pcoded-navbar[navbar-theme=themelight1] .pcoded-item>li.pcoded-hasmenu>a:after, .pcoded .pcoded-navbar[navbar-theme=themelight1] .pcoded-item>li.pcoded-hasmenu .pcoded-submenu li.pcoded-hasmenu>a:after {
+/* .pcoded .pcoded-navbar[navbar-theme=themelight1] .pcoded-item>li.pcoded-hasmenu>a:after, .pcoded .pcoded-navbar[navbar-theme=themelight1] .pcoded-item>li.pcoded-hasmenu .pcoded-submenu li.pcoded-hasmenu>a:after {
     color: #666
-}
+} */
 
 .pcoded .pcoded-navbar[navbar-theme=themelight1] .pcoded-item>li.active:hover>a, .pcoded .pcoded-navbar[navbar-theme=themelight1] .pcoded-item>li:hover>a {
     color: #666
@@ -7487,12 +7487,7 @@ body.menu-bottom #collapse-menu {
     top: -3px
 }
 
-.pcoded[theme-layout=horizontal] .pcoded-navbar .pcoded-item>li.pcoded-hasmenu>a:after, .pcoded[theme-layout=horizontal] .pcoded-navbar .pcoded-item>li.pcoded-hasmenu.active>a:after, .pcoded[theme-layout=horizontal] .pcoded-navbar .pcoded-item>li.pcoded-hasmenu.pcoded-trigger>a:after {
-    font-style: normal;
-    margin-left: 3px;
-    padding-left: 5px;
-    position: relative
-}
+
 
 .pcoded[theme-layout=horizontal] .pcoded-navbar .pcoded-item>.pcoded-hasmenu.edge.pcoded-trigger>.pcoded-submenu {
     right: 0
