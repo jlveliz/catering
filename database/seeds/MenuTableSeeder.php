@@ -27,7 +27,7 @@ class MenuTableSeeder extends Seeder
         $dashboard = [
             'name' => 'Escritorio',
             'route_name' => 'home',
-            'icon' => 'home',
+            'icon' => 'sidebar',
             'order' => '1',
             'enabled' => true
         ];
@@ -42,7 +42,7 @@ class MenuTableSeeder extends Seeder
         $customerMenu = [
             'name' => 'Customers',
             'route_name' => '',
-            'icon' => 'people',
+            'icon' => 'briefcase',
             'order' => 2,
             'enabled' => true
         ];
@@ -89,7 +89,7 @@ class MenuTableSeeder extends Seeder
         $recipes = [
             'name' => 'Recetas',
             'route_name' => '',
-            'icon' => 'recipes',
+            'icon' => 'list',
             'order' => 3,
             'enabled' => true
         ];
@@ -127,7 +127,7 @@ class MenuTableSeeder extends Seeder
         $inventory = [
             'name' => 'Inventario',
             'route_name' => '',
-            'icon' => 'inventory',
+            'icon' => 'box',
             'order' => 4,
             'enabled' => true
         ];
@@ -173,7 +173,7 @@ class MenuTableSeeder extends Seeder
         $accounting = [
             'name' => 'Contabilidad',
             'route_name' => '',
-            'icon' => 'accounting',
+            'icon' => 'dollar-sign',
             'order' => 5,
             'enabled' => true
         ];
@@ -198,7 +198,7 @@ class MenuTableSeeder extends Seeder
         $humanTalent = [
             'name' => 'R.R.H.H.',
             'route_name' => '',
-            'icon' => 'th',
+            'icon' => 'users',
             'order' => 6,
             'enabled' => true
         ];
@@ -224,7 +224,7 @@ class MenuTableSeeder extends Seeder
         $settings = [
             'name' => 'Configuracion',
             'route_name' => '',
-            'icon' => 'cog',
+            'icon' => 'settings',
             'order' => 7,
             'enabled' => true
         ];
