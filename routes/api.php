@@ -27,6 +27,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
     Route::resource('menus', 'MenuController');
+    Route::get('app-routes', 'MenuController@getRoutes');
     Route::resource('settings', 'SettingController');
     Route::resource('workplaces', 'WorkplaceController');
     Route::resource('employees', 'EmployeeController');

@@ -19,7 +19,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::whereNull('parent_id')->where('enabled',1)->orderBy('order')->get();
-        return MenuResource::collection($menus); 
+        return MenuResource::collection($menus);
     }
 
     /**
@@ -101,5 +101,12 @@ class MenuController extends Controller
                 return response()->json(['message' => "El menu {$name} Eliminada Correctamente"],200);
         }
         return response()->json(['message' => 'Menu no encontrado'], 404);
+    }
+
+
+    public function getRoutes()
+    {
+        $routes = Menu::select('route_name')->where('route_name','!=','')->get();
+        return response()->json(['data' => $routes],200);
     }
 }

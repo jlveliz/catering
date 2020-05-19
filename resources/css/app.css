@@ -3789,7 +3789,7 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
     padding-right: 5px
 }
 
-.pcoded .pcoded-navbar .pcoded-item .pcoded-hasmenu[subitem-icon=style1] .pcoded-submenu li>a .pcoded-mtext:before {
+/* .pcoded .pcoded-navbar .pcoded-item .pcoded-hasmenu[subitem-icon=style1] .pcoded-submenu li>a .pcoded-mtext:before {
     content: "\e844"
 }
 
@@ -3811,7 +3811,7 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
 
 .pcoded .pcoded-navbar .pcoded-item .pcoded-hasmenu[subitem-icon=style6] .pcoded-submenu li>a .pcoded-mtext:before {
     content: '\e89b'
-}
+} */
 
 .pcoded .pcoded-navbar .pcoded-item .pcoded-hasmenu[subitem-icon=style7] .pcoded-submenu li>a .pcoded-mtext:before {
     content: "";
@@ -3845,7 +3845,7 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
 
 /* .pcoded li.pcoded-hasmenu[dropdown-icon=style1]>a:after {
     content: "\e844"
-} */
+}
 
 .pcoded li.pcoded-hasmenu.pcoded-trigger[dropdown-icon=style1]>a:after {
     content: "\e842"
@@ -3865,7 +3865,7 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
 
 .pcoded li.pcoded-hasmenu.pcoded-trigger[dropdown-icon=style3]>a:after {
     content: '\e897'
-}
+}*/
 
 .pcoded[theme-layout=vertical][vertical-placement=right] .pcoded-navbar {
     float: right;

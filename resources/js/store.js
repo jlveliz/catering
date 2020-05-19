@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
         layout: 'simple-layout',
         token: localStorage.getItem('token') || null,
         user: {},
-        menus:[]
+        menus: [],
+        routes: []
     },
     mutations: {
         SET_LAYOUT(state, payload) {
@@ -24,18 +25,24 @@ export const store = new Vuex.Store({
         DESTROYTOKEN(state) {
             state.token = null
         },
-        SET_USER(state,user) {
+        SET_USER(state, user) {
             state.user = user
         },
         REMOVE_USER(state) {
             state.user = null
         },
-        GET_MENUS(state,menus){
+        GET_MENUS(state, menus) {
             state.menus = menus
         },
-        REMOVE_MENUS(state,menus){
+        REMOVE_MENUS(state, menus) {
             state.menus = [];
-        }
+        },
+        SET_ROUTES(state, routes) {
+            state.routes = routes
+        },
+        REMOVE_ROUTES(state, menus) {
+            state.routes = [];
+        },
     },
     getters: {
         layout(state) {
@@ -49,6 +56,9 @@ export const store = new Vuex.Store({
         },
         getMenus(state) {
             return state.menus;
+        },
+        getRoutes(state) {
+            return state.routes
         }
     },
     actions: {
@@ -75,11 +85,11 @@ export const store = new Vuex.Store({
         },
         getUser(context) {
             if (context.getters.loggedIn) {
-                return new Promise( (resolve, reject)  => {
-                    axios.post('/api/user-info','',{
+                return new Promise((resolve, reject) => {
+                    axios.post('/api/user-info', '', {
                         headers: { Authorization: "Bearer " + context.state.token }
-                    }).then( response => {
-                        context.commit('SET_USER',response.data.data)
+                    }).then(response => {
+                        context.commit('SET_USER', response.data.data)
                         resolve(response.data);
                     })
                 })
@@ -117,8 +127,20 @@ export const store = new Vuex.Store({
             if (context.getters.loggedIn) {
                 const menus = await axios.get("/api/menus", {
                     headers: { Authorization: "Bearer " + context.state.token }
-                  });
+                });
+                context.dispatch('getRoutes');
                 return menus.data.data;
+            }
+        },
+
+        async getRoutes(context) {
+            if (context.getters.loggedIn) {
+                const promise = await axios.get("/api/app-routes", {
+                    headers: { Authorization: "Bearer " + context.state.token }
+                });
+
+                let routes = promise.data.data.map(route => route.route_name);
+                context.commit("SET_ROUTES",routes);
             }
         }
     }
