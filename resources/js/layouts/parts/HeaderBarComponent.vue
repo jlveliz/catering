@@ -8,8 +8,17 @@
       <div class="navbar-logo" logo-theme="theme1">
         <!-- TODO LOGO -->
         <b-link :to="{name:'home'}" go>
-            <img src="./../../../images/svg/logo.svg" class="img-fluid">
+          <img src="./../../../images/svg/logo.svg" class="mx-auto w-25 img-fluid" />
         </b-link>
+
+        <a class="mobile-menu" id="mobile-collapse" href="#!">
+          <feather type="toggle-right" class="icon-menu"></feather>
+        </a>
+
+        <a class="mobile-options waves-effect waves-light">
+          <feather type="more-horizontal"></feather>
+        </a>
+
       </div>
       <div class="navbar-container container-fluid d-inline">
         <ul class="nav-right">
@@ -40,7 +49,9 @@ export default {
 </script>
 
 <style scoped>
-    .navbar-logo img {
-        width: 30%;
+@media only screen and (max-width: 992px)  {
+    .header-navbar .navbar-wrapper .navbar-logo a img {
+        width: 8% !important;
     }
+}
 </style>
