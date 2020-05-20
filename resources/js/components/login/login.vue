@@ -14,7 +14,13 @@
               <p class="text-muted text-center p-b-5">Ingrese su correo y contraseña</p>
             </b-col>
           </b-row>
-          <b-alert :show="hasError" fade dismissible variant="danger" class="background-danger">{{error}}</b-alert>
+          <b-alert
+            :show="hasError"
+            fade
+            dismissible
+            variant="danger"
+            class="background-danger"
+          >{{error}}</b-alert>
 
           <b-form-group class="form-primary" label-for="email">
             <b-form-input
@@ -58,8 +64,13 @@
           <b-row class="m-t-30">
             <b-col md="12">
               <b-button :disabled="fStates.isSubmiting" type="submit" variant="primary" block>
-                <span v-if="!fStates.isSubmiting">INGRESAR</span> 
-                <feather v-if="fStates.isSubmiting" type="loader" animation="spin" animation-speed="fast"></feather>
+                <span v-if="!fStates.isSubmiting">INGRESAR</span>
+                <feather
+                  v-if="fStates.isSubmiting"
+                  type="loader"
+                  animation="spin"
+                  animation-speed="fast"
+                ></feather>
               </b-button>
             </b-col>
           </b-row>
@@ -70,8 +81,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: "LoginView",
   data() {
@@ -90,7 +99,7 @@ export default {
       }
     };
   },
- 
+
   methods: {
     setFocusPassword() {
       this.$refs.password.$el.focus();
@@ -121,17 +130,17 @@ export default {
             this.error = response.data.message;
           }
           this.hasError = true;
-          this.setFocusPassword()
-          
+          this.setFocusPassword();
         })
-        .then( () => this.fStates.isSubmiting = false )
+        .then(() => (this.fStates.isSubmiting = false));
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
-  .login-logo-img{
-    width: 8%;
-  }
+<style  scoped>
+.login-logo-img {
+  width: 8%;
+}
+
 </style>

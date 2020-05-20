@@ -13,12 +13,6 @@ import { store } from './store';
 import router from './routes';
 
 
-// Main Css
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import './../css/app.css';
-import '../sass/app.scss'
-
 //Configure Plugins
 // Vue.use(VueAxios, axiosInstance);
 Vue.use(BootstrapVue);

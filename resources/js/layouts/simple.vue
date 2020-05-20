@@ -11,9 +11,8 @@
 </template>
 
 <script>
-import("./../../css/simple.css");
 
-import {Helpers} from "./../helpers";
+import { Helpers } from "./../helpers";
 
 export default {
   created() {
@@ -22,4 +21,13 @@ export default {
 };
 </script>
 <style>
+.login-block {
+  margin: 30px auto;
+  min-height: 93.6vh;
+}
+
+.login-block .auth-box {
+  margin: 20px auto 0 auto;
+  max-width: 450px;
+}
 </style>
