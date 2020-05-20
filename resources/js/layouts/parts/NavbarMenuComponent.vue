@@ -78,3 +78,7 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import './../../../sass/horizontal-menu.scss';
+</style>

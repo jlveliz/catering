@@ -24,11 +24,6 @@
 </template>
 
 <script>
-
-// import './../../css/app.css';
-// import './../../sass/horizontal-menu.scss';
-// import './../../sass/app.scss'
-
 import { Helpers } from "./../helpers";
 
 //Components
@@ -59,7 +54,7 @@ export default {
       } else if (winSize >= 993) {
         this.device = "desktop"
       } else {
-        this.device = "mobile";
+        this.device = "phone";
       }
     }
   },

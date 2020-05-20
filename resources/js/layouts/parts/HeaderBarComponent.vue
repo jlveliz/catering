@@ -11,7 +11,7 @@
           <img src="./../../../images/svg/logo.svg" class="mx-auto w-25 img-fluid" />
         </b-link>
 
-        <a class="mobile-menu" id="mobile-collapse" href="#!">
+        <a class="mobile-menu" id="mobile-collapse" href="#!" @click="showMenu != showMenu">
           <feather type="toggle-right" class="icon-menu"></feather>
         </a>
 
@@ -36,6 +36,11 @@ import UserProfile from "./UserProfileComponent";
 
 export default {
   name: "HeaderBar",
+  data() {
+    return {
+      showMenu : false
+    }
+  },
   props: {
     user: {
       type: Object,
@@ -54,4 +59,8 @@ export default {
         width: 8% !important;
     }
 }
+</style>
+
+<style lang="scss" scoped>
+@import './../../../sass/horizontal-menu.scss';
 </style>
