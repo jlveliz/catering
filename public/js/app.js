@@ -2366,12 +2366,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HeaderBar",
   data: function data() {
     return {
-      showMenu: false
+      showMobileMenuComponent: false,
+      showMobileUserProfile: false
     };
   },
   props: {
@@ -2382,6 +2386,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     UserProfile: _UserProfileComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    emitEventForMobileMenu: function emitEventForMobileMenu() {
+      this.$root.$emit('toggle-mobile-menu', this.showMobileMenuComponent);
+    }
   }
 });
 
@@ -2459,12 +2468,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavbarMenuComponent",
   data: function data() {
     return {
       menus: [],
-      isActive: null
+      isActive: null,
+      showMobileMenu: false
     };
   },
   methods: {
@@ -2503,7 +2514,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
   },
   mounted: function mounted() {
-    console.log(this.$store.getters.getRoutes);
+    var _this2 = this;
+
+    this.$root.$on('toggle-mobile-menu', function (value) {
+      return _this2.showMobileMenu = value;
+    });
   }
 });
 
@@ -48051,7 +48066,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.login-logo-img[data-v-ecc2ca70] {\r\n  width: 8%;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.login-logo-img[data-v-ecc2ca70] {\n  width: 8%;\n}\n\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -48069,7 +48084,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n@media only screen and (max-width: 992px)  {\n.header-navbar .navbar-wrapper .navbar-logo a img[data-v-9adc1f6c] {\r\n        width: 8% !important;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n@media only screen and (max-width: 992px) {\n.header-navbar .navbar-wrapper .navbar-logo a img[data-v-9adc1f6c] {\n    width: 8% !important;\n}\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -48087,7 +48102,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\nul.show-notification li[data-v-72e07b72]:hover {\r\n  background-color: #f1f1f1 !important;\n}\r\n", ""]);
+exports.push([module.i, "\nul.show-notification li[data-v-72e07b72]:hover {\n  background-color: #f1f1f1 !important;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -48105,7 +48120,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.login-block {\r\n  margin: 30px auto;\r\n  min-height: 93.6vh;\n}\n.login-block .auth-box {\r\n  margin: 20px auto 0 auto;\r\n  max-width: 450px;\n}\r\n", ""]);
+exports.push([module.i, "\n.login-block {\n  margin: 30px auto;\n  min-height: 93.6vh;\n}\n.login-block .auth-box {\n  margin: 20px auto 0 auto;\n  max-width: 450px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -84647,17 +84662,22 @@ var render = function() {
               "a",
               {
                 staticClass: "mobile-menu",
-                attrs: { id: "mobile-collapse", href: "#!" },
+                attrs: { id: "mobile-collapse" },
                 on: {
                   click: function($event) {
-                    _vm.showMenu != _vm.showMenu
+                    _vm.showMobileMenuComponent = !_vm.showMobileMenuComponent
+                    _vm.emitEventForMobileMenu()
                   }
                 }
               },
               [
                 _c("feather", {
                   staticClass: "icon-menu",
-                  attrs: { type: "toggle-right" }
+                  attrs: {
+                    type: !_vm.showMobileMenuComponent
+                      ? "toggle-right"
+                      : "toggle-left"
+                  }
                 })
               ],
               1
@@ -84665,7 +84685,14 @@ var render = function() {
             _vm._v(" "),
             _c(
               "a",
-              { staticClass: "mobile-options waves-effect waves-light" },
+              {
+                staticClass: "mobile-options waves-effect waves-light",
+                on: {
+                  click: function($event) {
+                    _vm.showMobileUserProfile = !_vm.showMobileUserProfile
+                  }
+                }
+              },
               [_c("feather", { attrs: { type: "more-horizontal" } })],
               1
             )
@@ -84677,20 +84704,27 @@ var render = function() {
           "div",
           { staticClass: "navbar-container container-fluid d-inline" },
           [
-            _c("ul", { staticClass: "nav-right" }, [
-              _c(
-                "li",
-                { staticClass: "user-profile header-notification" },
-                [
-                  _c("user-profile", {
-                    attrs: {
-                      username: this.user.name + " " + this.user.lastname
-                    }
-                  })
-                ],
-                1
-              )
-            ])
+            _c(
+              "ul",
+              {
+                staticClass: "nav-right",
+                class: { "d-block": _vm.showMobileUserProfile }
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "user-profile header-notification" },
+                  [
+                    _c("user-profile", {
+                      attrs: {
+                        username: this.user.name + " " + this.user.lastname
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            )
           ]
         )
       ])
@@ -84723,6 +84757,7 @@ var render = function() {
     "nav",
     {
       staticClass: "pcoded-navbar is-hover",
+      class: { "show-menu": _vm.showMobileMenu },
       attrs: {
         "navbar-theme": "themelight1",
         "active-item-theme": "theme1",
@@ -101160,7 +101195,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/logo.svg?e92a1a60652f8a19614e53ce59ec19b6";
+module.exports = "/images/logo.svg?3f4792a56949f26ddd09cb3ebbd0a7dd";
 
 /***/ }),
 
@@ -102435,7 +102470,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\laragon\www\catering\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/php73/catering/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

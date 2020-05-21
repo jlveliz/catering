@@ -1,6 +1,7 @@
 <template>
   <nav
     class="pcoded-navbar is-hover"
+    :class="{'show-menu':showMobileMenu}"
     navbar-theme="themelight1"
     active-item-theme="theme1"
     sub-item-theme="theme1"
@@ -42,9 +43,9 @@
               :to="{name:children.route}"
             >
               <a class="waves-effect waves-dark">
-                  <feather type="chevron-right" size="12"></feather>
-                  <span class="pcoded-mtext">{{children.name}}</span>
-                </a>
+                <feather type="chevron-right" size="12"></feather>
+                <span class="pcoded-mtext">{{children.name}}</span>
+              </a>
             </b-link>
           </ul>
         </b-link>
@@ -59,7 +60,8 @@ export default {
   data() {
     return {
       menus: [],
-      isActive:null
+      isActive: null,
+      showMobileMenu:false
     };
   },
   methods: {
@@ -74,11 +76,11 @@ export default {
     this.$store.dispatch("getMenus").then(result => (this.menus = result));
   },
   mounted() {
-      console.log(this.$store.getters.getRoutes);
+    this.$root.$on('toggle-mobile-menu', (value) => this.showMobileMenu = value)
   }
 };
 </script>
 
 <style lang="scss">
-@import './../../../sass/horizontal-menu.scss';
+@import "./../../../sass/horizontal-menu.scss";
 </style>
