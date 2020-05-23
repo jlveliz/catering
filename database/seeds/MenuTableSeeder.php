@@ -222,7 +222,7 @@ class MenuTableSeeder extends Seeder
     {
         // Setting
         $settings = [
-            'name' => 'Configuracion',
+            'name' => 'Configuración',
             'route_name' => '',
             'icon' => 'settings',
             'order' => 7,
@@ -269,7 +269,7 @@ class MenuTableSeeder extends Seeder
 
         // Settings
         $setting = [
-            'name' => 'Configuracion',
+            'name' => 'Configuración',
             'route_name' => 'settings',
             'icon' => 'cog',
             'order' => 4,

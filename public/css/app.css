@@ -11643,3 +11643,14 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataT
 .pcoded[layout-type=dark] .bg-c-purple {
     background: #536dfe
 }
+
+
+
+/*
+* Personalizacion
+*
+*/
+
+.custom-form-button {
+    font-size: 14px;
+}

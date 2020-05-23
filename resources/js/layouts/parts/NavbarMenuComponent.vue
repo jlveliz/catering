@@ -40,7 +40,7 @@
               v-for="children in menu.children"
               v-bind:key="children.id"
               router-tag="li"
-              :to="{name:children.route}"
+              :to="{name:children.route_name}"
             >
               <a class="waves-effect waves-dark">
                 <feather type="chevron-right" size="12"></feather>

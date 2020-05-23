@@ -7,6 +7,7 @@ Vue.use(VueRouter);
 // Components
 import LoginViewComponent from './components/login/login';
 import HomeViewComponent from './components/dashboard/home';
+import SettingIndex from './components/settings/setting/index'
 
 const router = new VueRouter({
     mode:'history',
@@ -27,6 +28,14 @@ const router = new VueRouter({
             path:'/home',
             name:'home',
             component:HomeViewComponent,
+            meta: {
+                requiresAuth:true
+            }
+        },
+        {
+            path:'/settings',
+            name:'settings',
+            component:SettingIndex,
             meta: {
                 requiresAuth:true
             }
