@@ -14,7 +14,7 @@
             <h5>General</h5>
           </div>
           <div class="card-body">
-            <form @submit="saveFrmGeneral" @reset="resetGeneral" validated novalidate>
+            <form @submit.stop.prevent="saveFrmGeneral" @reset="resetGeneral" validated novalidate>
               <b-form-group
                 id="lbl-business-name"
                 label="Empresa"
@@ -23,13 +23,14 @@
               >
                 <b-form-input
                   id="txt-bussiness-name"
-                  v-model="frmGeneral.business_name.value"
+                  v-model="$v.frmGeneral.business_name.value.$model"
                   required
                   placeholder="Nombre de la empresa"
                   size="sm"
                   autofocus
                   @change="saveItemConfig(frmGeneral.business_name,'savingBussinessName')"
                   :disabled="statesItemFrm.savingBussinessName || statesItemFrm.savingGeneralFrmConfig"
+                  :state="validateState('frmGeneral.business_name')"
                 ></b-form-input>
               </b-form-group>
 
@@ -41,12 +42,13 @@
               >
                 <b-form-input
                   id="txt-bussiness-address"
-                  v-model="frmGeneral.business_address.value"
+                  v-model="$v.frmGeneral.business_address.value.$model"
                   required
                   placeholder="Av. Francisco de Orellana, Guayaquil"
                   size="sm"
                   @change="saveItemConfig(frmGeneral.business_address,'savingBussinessAddress')"
                   :disabled="statesItemFrm.savingBussinessAddress || statesItemFrm.savingGeneralFrmConfig"
+                  :state="validateState('frmGeneral.business_address')"
                 ></b-form-input>
               </b-form-group>
 
@@ -60,12 +62,13 @@
                   >
                     <b-form-input
                       id="txt-bussiness-phone"
-                      v-model="frmGeneral.business_phone.value"
+                      v-model="$v.frmGeneral.business_phone.value.$model"
                       required
                       placeholder="2195533"
                       size="sm"
                       @change="saveItemConfig(frmGeneral.business_phone,'savingBussinessPhone')"
                       :disabled="statesItemFrm.savingBussinessPhone || statesItemFrm.savingGeneralFrmConfig"
+                      :state="validateState('frmGeneral.business_phone')"
                     ></b-form-input>
                   </b-form-group>
                 </b-col>
@@ -79,12 +82,13 @@
                   >
                     <b-form-input
                       id="txt-bussiness-email"
-                      v-model="frmGeneral.business_email.value"
+                      v-model="$v.frmGeneral.business_email.value.$model"
                       required
                       placeholder="info@micatering.com"
                       size="sm"
                       @change="saveItemConfig(frmGeneral.business_email,'savingBussinessEmail')"
                       :disabled="statesItemFrm.savingBussinessEmail || statesItemFrm.savingGeneralFrmConfig"
+                      :state="validateState('frmGeneral.business_email')"
                     ></b-form-input>
                   </b-form-group>
                 </b-col>
@@ -92,7 +96,7 @@
 
               <b-form-row>
                 <b-col cols="12">
-                  <b-button type="submit" variant="primary" size="sm" class="custom-form-button">
+                  <b-button type="submit" variant="primary" size="sm" class="custom-form-button" :disabled="$v.frmGeneral.$invalid">
                     <feather type="save" class="align-top" size="15"></feather>Guardar
                   </b-button>
                 </b-col>
@@ -109,10 +113,13 @@
 <script>
 import ContentHeaderComponent from "./../../../layouts/parts/ContentHeaderComponent";
 import ContentMainContentComponent from "./../../../layouts/parts/ContentMainContentComponent";
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
 import { SettingService } from "./SettingService";
 
 export default {
   name: "SettingIndex",
+  mixins: [validationMixin],
   components: {
     ContentHeaderComponent,
     ContentMainContentComponent
@@ -153,23 +160,71 @@ export default {
         });
       });
     },
+    makeToast(options) {
+      this.$bvToast.toast(options.content, options);
+    },
+    validateState(item) {
+      item = item.split(".");
+      const { $error } = this.$v[item[0]][item[1]].value;
+      return $error ? false : null;
+    },
     saveItemConfig(data, item) {
+      if (!data.value) return false;
       this.statesItemFrm[item] = true;
-      SettingService.saveItemConfig(data).then(result => {
-        data = result;
-        this.statesItemFrm[item] = false;
-      });
+      SettingService.saveItemConfig(data)
+        .then(result => {
+          data = result;
+          this.statesItemFrm[item] = false;
+          this.makeToast({
+            content: "Configuración Guardada",
+            title: "Atención",
+            variant: "info"
+          });
+        })
+        .catch(err => {
+          this.statesItemFrm[item] = false;
+        })
+        .then(always => (this.statesItemFrm[item] = false));
     },
     saveFrmGeneral(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      debugger
+      if(this.$v.frmGeneral.$invalid) return false; 
       this.statesItemFrm.savingGeneralFrmConfig = true;
       SettingService.saveAllForm(this.frmGeneral).then(result => {
         this.statesItemFrm.savingGeneralFrmConfig = false;
         this.frmGeneral = result;
+        this.makeToast({
+            content: "Configuración Guardada",
+            title: "Atención",
+            variant: "info"
+          });
       });
     },
     resetGeneral() {}
+  },
+  validations: {
+    frmGeneral: {
+      business_name: {
+        value: {
+          required
+        }
+      },
+      business_address: {
+        value: {
+          required
+        }
+      },
+      business_phone: {
+        value: {
+          required
+        }
+      },
+      business_email: {
+        value: {
+          required
+        }
+      }
+    }
   },
   mounted() {
     this.loadGeneralSettings();
