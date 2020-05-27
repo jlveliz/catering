@@ -19,6 +19,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$businessName) {
             Setting::create([
+                'category' => 'general',
                 'key' => 'business_name',
                 'value' => config('app.name'),
                 'lock' => 1
@@ -30,6 +31,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$businessAddress) {
             Setting::create([
+                'category' => 'general',
                 'key' => 'business_address',
                 'value' => config('app.name') . ' Av.',
                 'lock' => 1
@@ -41,12 +43,25 @@ class SettingsTableSeeder extends Seeder
 
         if (!$businessPhone) {
             Setting::create([
+                'category' => 'general',
                 'key' => 'business_phone',
                 'value' => '22222',
                 'lock' => 1
             ]);
         }
 
+          //Telf del negocio
+          $businessEmail = $this->findSetting('business_email');
+
+          if (!$businessEmail) {
+              Setting::create([
+                  'category' => 'general',
+                  'key' => 'business_email',
+                  'value' => '22222',
+                  'lock' => 1
+              ]);
+          }
+  
 
 
         //Tax
@@ -54,6 +69,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$taxPercentage) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'iva',
                 'value' => '12',
                 'lock' => 1
@@ -65,6 +81,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$taxPercentage) {
             Setting::create([
+                'category' => 'currency',
                 'key' => 'currency_signal',
                 'value' => '$',
                 'lock' => 1
@@ -76,6 +93,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$monToFriday) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'monday_to_friday',
                 'value' => 'yes',
                 'lock' => 1
@@ -87,6 +105,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$monToSunday) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'monday_to_sunday',
                 'value' => 'yes',
                 'lock' => 1
@@ -99,6 +118,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$breakfast) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'breakfast',
                 'value' => 'yes',
                 'lock' => 1
@@ -110,6 +130,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$breakfast) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'dietary_breakfast',
                 'value' => 'no',
                 'lock' => 1
@@ -122,6 +143,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$lunch) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'lunch',
                 'value' => 'yes',
                 'lock' => 1
@@ -133,6 +155,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$lunch) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'dietary_lunch',
                 'value' => 'no',
                 'lock' => 1
@@ -144,6 +167,7 @@ class SettingsTableSeeder extends Seeder
 
         if (!$dinner) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'dinner',
                 'value' => 'yes',
                 'lock' => 1
@@ -154,6 +178,7 @@ class SettingsTableSeeder extends Seeder
         $dinner = $this->findSetting('dietary_dinner');
         if (!$dinner) {
             Setting::create([
+                'category' => 'service',
                 'key' => 'dietary_dinner',
                 'value' => 'no',
                 'lock' => 1
@@ -164,6 +189,7 @@ class SettingsTableSeeder extends Seeder
         $lb = $this->findSetting('lb');
         if (!$lb) {
             Setting::create([
+                'category' => 'measure',
                 'key' => 'lb',
                 'value' => 'Libra',
                 'lock' => 1
@@ -174,6 +200,7 @@ class SettingsTableSeeder extends Seeder
         $kg = $this->findSetting('kg');
         if (!$kg) {
             Setting::create([
+                'category' => 'measure',
                 'key' => 'kg',
                 'value' => 'Kilo',
                 'lock' => 1
@@ -184,6 +211,7 @@ class SettingsTableSeeder extends Seeder
         $l = $this->findSetting('l');
         if (!$l) {
             Setting::create([
+                'category' => 'measure',
                 'key' => 'l',
                 'value' => 'Litro',
                 'lock' => 1
@@ -194,6 +222,7 @@ class SettingsTableSeeder extends Seeder
         $legal = $this->findSetting('legal_representant');
         if (!$legal) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'legal_representant',
                 'value' => 'Representante Legal',
                 'lock' => 1
@@ -204,6 +233,7 @@ class SettingsTableSeeder extends Seeder
         $taxIdentification = $this->findSetting('tax_identification');
         if (!$taxIdentification) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'tax_identification',
                 'value' => '9999999999',
                 'lock' => 1
@@ -214,6 +244,7 @@ class SettingsTableSeeder extends Seeder
         $invoiceInitSequential = $this->findSetting('invoice_init_sequential');
         if (!$invoiceInitSequential) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'invoice_init_sequential',
                 'value' => 0,
                 'lock' => 1
@@ -224,6 +255,7 @@ class SettingsTableSeeder extends Seeder
         $invoiceDateGenerationBeginMonth = $this->findSetting('invoice_generation_begin_month');
         if (!$invoiceDateGenerationBeginMonth) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'invoice_generation_begin_month',
                 'value' => 29,
                 'lock' => 1
@@ -234,6 +266,7 @@ class SettingsTableSeeder extends Seeder
         $invoiceDateGenerationEndMonth = $this->findSetting('invoice_generation_end_month');
         if (!$invoiceDateGenerationEndMonth) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'invoice_generation_end_month',
                 'value' => 25,
                 'lock' => 1
@@ -244,6 +277,7 @@ class SettingsTableSeeder extends Seeder
         $invoiceDateGenerationEach15Days = $this->findSetting('invoice_each_fifteen_days');
         if (!$invoiceDateGenerationEach15Days) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'invoice_each_fifteen_days',
                 'value' => 11,
                 'lock' => 1
@@ -254,6 +288,7 @@ class SettingsTableSeeder extends Seeder
         $waitForPayInvoices = $this->findSetting('wait_for_pay_invoices');
         if (!$waitForPayInvoices) {
             Setting::create([
+                'category' => 'invoice',
                 'key' => 'wait_for_pay_invoices',
                 'value' => 11,
                 'lock' => 1

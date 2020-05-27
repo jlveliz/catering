@@ -39,6 +39,7 @@ class SettingRequest extends FormRequest implements ValidationInterface
     {
         return [
             'key' => 'required|string|unique:settings,key',
+            'category' => 'required',
             'value' => 'required',
             'lock' => 'boolean'
         ];

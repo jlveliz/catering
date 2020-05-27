@@ -112,4 +112,15 @@ class SettingController extends Controller
         }
         return response()->json(['message' => 'Configuración no encontrada'], 404);
     }
+
+
+    /**
+     * Customs Fuctions Api
+     */
+
+     public function listCategory($category)
+     {
+        $settings = Setting::where('category',$category)->get();
+        return SettingsResource::collection($settings);
+     }
 }

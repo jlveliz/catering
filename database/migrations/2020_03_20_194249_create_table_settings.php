@@ -16,6 +16,7 @@ class CreateTableSettings extends Migration
         if (!Schema::hasTable('settings')) {
             Schema::create('settings', function (Blueprint $table) {
                 $table->bigIncrements('id');
+                $table->string('category');
                 $table->string('key')->unique();
                 $table->string('value');
                 $table->boolean('lock')->default(0);
