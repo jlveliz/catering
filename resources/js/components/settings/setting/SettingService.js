@@ -4,9 +4,9 @@ import axios from 'axios';
 
 export const SettingService = {
 
-    async listServices(type) {
-        let services = await axios.get('/api/settings/' + type, { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
-        return await services.data.data;
+    async listConfig(type) {
+        let configs = await axios.get('/api/settings/' + type, { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
+        return await configs.data.data;
     },
 
     async saveItemConfig(data) {
@@ -15,7 +15,7 @@ export const SettingService = {
     },
 
     async saveAllForm(collection) {
-        let data = {} 
+        let data = {}
         for (const key in collection) {
             data[key] = await this.saveItemConfig(collection[key],collection[key].id)
         }

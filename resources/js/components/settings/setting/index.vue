@@ -14,7 +14,7 @@
             <h5>General</h5>
           </div>
           <div class="card-body">
-            <form @submit.stop.prevent="saveFrmGeneral" @reset="resetGeneral" validated novalidate>
+            <form @submit.stop.prevent="saveFrmGeneral" validated novalidate>
               <b-form-group
                 id="lbl-business-name"
                 label="Empresa"
@@ -96,7 +96,132 @@
 
               <b-form-row>
                 <b-col cols="12">
-                  <b-button type="submit" variant="primary" size="sm" class="custom-form-button" :disabled="$v.frmGeneral.$invalid">
+                  <b-button
+                    type="submit"
+                    variant="primary"
+                    size="sm"
+                    class="custom-form-button"
+                    :disabled="$v.frmGeneral.$invalid"
+                  >
+                    <feather type="save" class="align-top" size="15"></feather>Guardar
+                  </b-button>
+                </b-col>
+              </b-form-row>
+            </form>
+          </div>
+        </div>
+      </b-col>
+      <!-- Conf General -->
+
+      <b-col sm="12" md="4">
+        <div class="card">
+          <div class="card-header">
+            <h5>Servicios</h5>
+          </div>
+          <div class="card-body">
+            <form @submit.stop.prevent="saveFrmServices" validated novalidate>
+              <b-form-row>
+                <b-col sm="12" lg="12">
+                  <b-form-group label="Atención">
+                    <b-form-checkbox
+                      v-model="$v.frmService.monday_to_friday.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.monday_to_friday,'savingMondayToFriday')"
+                      :disabled="statesItemFrm.savingMondayToFriday || statesItemFrm.savingServiceFrmConfig"
+                    >Lunes a Viernes</b-form-checkbox>
+                    <b-form-checkbox
+                      v-model="$v.frmService.monday_to_sunday.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.monday_to_sunday,'savingMondayToSunday')"
+                      :disabled="statesItemFrm.savingMondayToSunday || statesItemFrm.savingServiceFrmConfig"
+                    >Lunes a Domingo</b-form-checkbox>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+
+              <b-form-row>
+                <b-col sm="12" lg="12">
+                  <b-form-group label="Desayunos">
+                    <b-form-checkbox
+                      v-model="$v.frmService.breakfast.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.breakfast,'savingBreakfast')"
+                      :disabled="statesItemFrm.savingBreakfast || statesItemFrm.savingServiceFrmConfig"
+                    >Normal</b-form-checkbox>
+                    <b-form-checkbox
+                      v-model="$v.frmService.dietary_breakfast.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.dietary_breakfast,'savingDietaryBreakfast')"
+                      :disabled="statesItemFrm.savingDietaryBreakfast || statesItemFrm.savingServiceFrmConfig"
+                    >Dieta</b-form-checkbox>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+
+              <b-form-row>
+                <b-col sm="12" lg="12">
+                  <b-form-group label="Almuerzos">
+                    <b-form-checkbox
+                      v-model="$v.frmService.lunch.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.lunch,'savingLunch')"
+                      :disabled="statesItemFrm.savingLunch || statesItemFrm.savingServiceFrmConfig"
+                    >Normal</b-form-checkbox>
+
+                    <b-form-checkbox
+                      v-model="$v.frmService.dietary_lunch.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.dietary_lunch,'savingDietaryLunch')"
+                      :disabled="statesItemFrm.savingDietaryLunch || statesItemFrm.savingServiceFrmConfig"
+                    >Dieta</b-form-checkbox>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+
+              <b-form-row>
+                <b-col sm="12" lg="12">
+                  <b-form-group label="Cenas">
+                    <b-form-checkbox
+                      v-model="$v.frmService.dinner.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.dinner,'savingDinner')"
+                      :disabled="statesItemFrm.savingDinner || statesItemFrm.savingServiceFrmConfig"
+                    >Normal</b-form-checkbox>
+
+                    <b-form-checkbox
+                      v-model="$v.frmService.dietary_dinner.value.$model"
+                      value="yes"
+                      unchecked-value="no"
+                      inline
+                      @change="saveItemConfig(frmService.dietary_dinner,'savingDietaryDinner')"
+                      :disabled="statesItemFrm.savingDietaryDinner || statesItemFrm.savingServiceFrmConfig"
+                    >Dieta</b-form-checkbox>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-row>
+                <b-col cols="12">
+                  <b-button
+                    type="submit"
+                    variant="primary"
+                    size="sm"
+                    class="custom-form-button"
+                    :disabled="$v.frmService.$invalid"
+                  >
                     <feather type="save" class="align-top" size="15"></feather>Guardar
                   </b-button>
                 </b-col>
@@ -131,7 +256,16 @@ export default {
         savingBussinessAddress: false,
         savingBussinessPhone: false,
         savingBussinessEmail: false,
-        savingGeneralFrmConfig: false
+        savingGeneralFrmConfig: false,
+        savingMondayToFriday: false,
+        savingMondayToSunday: false,
+        savingBreakfast: false,
+        savingDietaryBreakfast: false,
+        savingLunch: false,
+        savingDietaryLunch: false,
+        savingDinner: false,
+        savingDietaryDinner: false,
+        savingServiceFrmConfig: false
       },
       listBreadcumbs: [
         {
@@ -147,15 +281,25 @@ export default {
         business_address: {},
         business_phone: {},
         business_email: {}
+      },
+      frmService: {
+        monday_to_friday: {},
+        monday_to_sunday: {},
+        breakfast: {},
+        dietary_breakfast: {},
+        lunch: {},
+        dietary_lunch: {},
+        dinner: {},
+        dietary_dinner: {}
       }
     };
   },
   methods: {
-    loadGeneralSettings() {
-      SettingService.listServices("general").then(results => {
+    loadSettings(type, formObject) {
+      SettingService.listConfig(type).then(results => {
         results.map(item => {
-          if (this.frmGeneral.hasOwnProperty(item.key)) {
-            this.frmGeneral[item.key] = item;
+          if (formObject.hasOwnProperty(item.key)) {
+            formObject[item.key] = item;
           }
         });
       });
@@ -187,20 +331,31 @@ export default {
         .then(always => (this.statesItemFrm[item] = false));
     },
     saveFrmGeneral(e) {
-      debugger
-      if(this.$v.frmGeneral.$invalid) return false; 
+      if (this.$v.frmGeneral.$invalid) return false;
       this.statesItemFrm.savingGeneralFrmConfig = true;
       SettingService.saveAllForm(this.frmGeneral).then(result => {
         this.statesItemFrm.savingGeneralFrmConfig = false;
         this.frmGeneral = result;
         this.makeToast({
-            content: "Configuración Guardada",
-            title: "Atención",
-            variant: "info"
-          });
+          content: "Configuración General Guardada",
+          title: "Atención",
+          variant: "info"
+        });
       });
     },
-    resetGeneral() {}
+    saveFrmServices() {
+      if (this.$v.frmService.$invalid) return false;
+      this.statesItemFrm.savingServiceFrmConfig = true;
+      SettingService.saveAllForm(this.frmService).then(result => {
+        this.statesItemFrm.savingServiceFrmConfig = false;
+        this.frmService = result;
+        this.makeToast({
+          content: "Configuración de Servicios Guardada",
+          title: "Atención",
+          variant: "info"
+        });
+      });
+    }
   },
   validations: {
     frmGeneral: {
@@ -224,10 +379,54 @@ export default {
           required
         }
       }
+    },
+
+    frmService: {
+      monday_to_friday: {
+        value: {
+          required
+        }
+      },
+      monday_to_sunday: {
+        value: {
+          required
+        }
+      },
+      breakfast: {
+        value: {
+          required
+        }
+      },
+      dietary_breakfast: {
+        value: {
+          required
+        }
+      },
+      lunch: {
+        value: {
+          required
+        }
+      },
+      dietary_lunch: {
+        value: {
+          required
+        }
+      },
+      dinner: {
+        value: {
+          required
+        }
+      },
+      dietary_dinner: {
+        value: {
+          required
+        }
+      }
     }
   },
   mounted() {
-    this.loadGeneralSettings();
+    this.loadSettings("general", this.frmGeneral);
+    this.loadSettings("service", this.frmService);
   }
 };
 </script>
