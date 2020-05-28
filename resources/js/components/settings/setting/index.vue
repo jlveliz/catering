@@ -265,7 +265,8 @@ export default {
         savingDietaryLunch: false,
         savingDinner: false,
         savingDietaryDinner: false,
-        savingServiceFrmConfig: false
+        savingServiceFrmConfig: false,
+        savingfrmMeasureConfig: false
       },
       listBreadcumbs: [
         {
@@ -291,6 +292,10 @@ export default {
         dietary_lunch: {},
         dinner: {},
         dietary_dinner: {}
+      },
+      frmMeasure: {
+        lb:{},
+        kl:{}
       }
     };
   },
@@ -427,6 +432,7 @@ export default {
   mounted() {
     this.loadSettings("general", this.frmGeneral);
     this.loadSettings("service", this.frmService);
+    this.loadSettings("measure", this.frmMeasure);
   }
 };
 </script>
