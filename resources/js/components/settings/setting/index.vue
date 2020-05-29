@@ -213,24 +213,32 @@
                   </b-form-group>
                 </b-col>
               </b-form-row>
-              <b-form-row>
-                <b-col cols="12">
-                  <b-button
-                    type="submit"
-                    variant="primary"
-                    size="sm"
-                    class="custom-form-button"
-                    :disabled="$v.frmService.$invalid"
-                  >
-                    <feather type="save" class="align-top" size="15"></feather>Guardar
-                  </b-button>
-                </b-col>
-              </b-form-row>
             </form>
           </div>
         </div>
       </b-col>
       <!-- Conf General -->
+
+      <b-col sm="12" md="4">
+        <div class="card">
+          <div class="card-header">
+            <h5>Medidas</h5>
+          </div>
+          <div class="card-body">
+            <form @submit.stop.prevent="saveFrmServices" validated novalidate>
+              <b-form-row>
+                <b-form-group label="Pesos">
+                  <b-form-radio-group v-model="$v.frmMeasure.weight.value.$model" @change="saveItemConfig(frmMeasure.weight,'savingWeight')"  :disabled="statesItemFrm.savingWeight">
+                    <b-form-radio value="libra">Libra(s)</b-form-radio>
+                    <b-form-radio value="kilo">Kilo(s)</b-form-radio>
+                  </b-form-radio-group>
+                </b-form-group>
+              </b-form-row>
+            </form>
+          </div>
+        </div>
+      </b-col>
+      <!-- Conf de Pesos -->
     </content-main-content-component>
   </div>
 </template>
@@ -266,7 +274,7 @@ export default {
         savingDinner: false,
         savingDietaryDinner: false,
         savingServiceFrmConfig: false,
-        savingfrmMeasureConfig: false
+        savingWeight: false
       },
       listBreadcumbs: [
         {
@@ -294,8 +302,7 @@ export default {
         dietary_dinner: {}
       },
       frmMeasure: {
-        lb:{},
-        kl:{}
+        weight: {}
       }
     };
   },
@@ -423,6 +430,13 @@ export default {
         }
       },
       dietary_dinner: {
+        value: {
+          required
+        }
+      }
+    },
+    frmMeasure: {
+      weight: {
         value: {
           required
         }

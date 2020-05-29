@@ -190,19 +190,8 @@ class SettingsTableSeeder extends Seeder
         if (!$lb) {
             Setting::create([
                 'category' => 'measure',
-                'key' => 'lb',
-                'value' => 'Libra',
-                'lock' => 1
-            ]);
-        }
-
-        //Kilo
-        $kg = $this->findSetting('kg');
-        if (!$kg) {
-            Setting::create([
-                'category' => 'measure',
-                'key' => 'kg',
-                'value' => 'Kilo',
+                'key' => 'weight',
+                'value' => 'libra',
                 'lock' => 1
             ]);
         }
