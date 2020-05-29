@@ -258,7 +258,7 @@ class MenuTableSeeder extends Seeder
         // WorkPlace
         $workplace = [
             'name' => 'Lugares de trabajo',
-            'route_name' => 'workplace',
+            'route_name' => 'workplaces',
             'icon' => 'workplace',
             'order' => 3,
             'parent_id' => $settings->id,

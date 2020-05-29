@@ -8,6 +8,7 @@ Vue.use(VueRouter);
 import LoginViewComponent from './components/login/login';
 import HomeViewComponent from './components/dashboard/home';
 import SettingIndex from './components/settings/setting/index'
+import WorkplaceIndex from './components/settings/workplace/index';
 
 const router = new VueRouter({
     mode:'history',
@@ -28,6 +29,14 @@ const router = new VueRouter({
             path:'/home',
             name:'home',
             component:HomeViewComponent,
+            meta: {
+                requiresAuth:true
+            }
+        },
+        {
+            path:'/workplaces',
+            name:'workplaces',
+            component:WorkplaceIndex,
             meta: {
                 requiresAuth:true
             }
