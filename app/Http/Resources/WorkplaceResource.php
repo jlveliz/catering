@@ -14,6 +14,12 @@ class WorkplaceResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name'=> $this->name,
+            'num_employees' => $this->employees()->count(),
+            'address' => $this->address,
+        ];
     }
 }

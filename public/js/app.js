@@ -759,6 +759,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -789,10 +825,14 @@ __webpack_require__.r(__webpack_exports__);
         label: "Dirección",
         sortable: false
       }, {
+        key: "num_employees",
+        label: "Num Empleados"
+      }, {
         key: "action",
         label: "Acción"
       }],
-      workplaces: []
+      workplaces: [],
+      titleModal: ""
     };
   },
   methods: {
@@ -803,8 +843,13 @@ __webpack_require__.r(__webpack_exports__);
         return _this.workplaces = result;
       });
     },
-    showModal: function showModal(id) {
-      console.log(id);
+    createWorkplace: function createWorkplace() {
+      this.$refs["create-edit-modal"].show();
+      this.titleModal = "Crear Lugar de Trabajo";
+    },
+    editWorkplace: function editWorkplace(id) {
+      this.$refs["create-edit-modal"].show();
+      this.titleModal = "Editar Lugar de Trabajo";
     }
   },
   mounted: function mounted() {
@@ -10671,9 +10716,60 @@ var render = function() {
         [
           _c("b-col", { attrs: { cols: "12" } }, [
             _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _c("h5", [_vm._v("Lugares de Trabajo")])
-              ]),
+              _c(
+                "div",
+                { staticClass: "card-header" },
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { attrs: { md: "10", sm: "12" } }, [
+                        _c(
+                          "h5",
+                          {
+                            staticClass:
+                              "text-md-left text-sm-center text-center d-block d-block"
+                          },
+                          [_vm._v("Lugares de Trabajo")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        {
+                          staticClass:
+                            "text-center text-md-right text-sm-center",
+                          attrs: { md: "2", sm: "12" }
+                        },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { size: "sm", variant: "primary" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.createWorkplace()
+                                }
+                              }
+                            },
+                            [
+                              _c("feather", {
+                                staticClass: "align-middle",
+                                attrs: { type: "plus", size: "15px" }
+                              }),
+                              _vm._v("Crear\n              ")
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "div",
@@ -10698,7 +10794,7 @@ var render = function() {
                               {
                                 on: {
                                   click: function($event) {
-                                    return _vm.showModal(row.item.id)
+                                    return _vm.editWorkplace(row.item.id)
                                   }
                                 }
                               },
@@ -10712,13 +10808,70 @@ var render = function() {
                         fn: function(row) {
                           return [
                             _c(
-                              "b-button",
+                              "b-dropdown",
                               {
-                                staticClass: "mr-2",
-                                attrs: { size: "sm" },
-                                on: { click: row.toggleDetails }
+                                attrs: { size: "sm", variant: "default" },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "button-content",
+                                      fn: function() {
+                                        return [
+                                          _c("feather", {
+                                            staticClass: "align-middle",
+                                            attrs: {
+                                              type: "tool",
+                                              size: "15px"
+                                            }
+                                          })
+                                        ]
+                                      },
+                                      proxy: true
+                                    }
+                                  ],
+                                  null,
+                                  true
+                                )
                               },
-                              [_vm._v("Details")]
+                              [
+                                _vm._v(" "),
+                                _c(
+                                  "b-dropdown-item",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editWorkplace(row.item.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("feather", {
+                                      staticClass: "align-middle",
+                                      attrs: { type: "edit", size: "15px" }
+                                    }),
+                                    _vm._v(" Editar\n                ")
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                row.item.num_employees == 0
+                                  ? _c(
+                                      "b-dropdown-item",
+                                      [
+                                        _c("feather", {
+                                          staticClass: "align-middle",
+                                          attrs: {
+                                            type: "delete",
+                                            size: "15px"
+                                          }
+                                        }),
+                                        _vm._v(" Eliminar\n                ")
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e()
+                              ],
+                              1
                             )
                           ]
                         }
@@ -10730,6 +10883,35 @@ var render = function() {
               )
             ])
           ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { ref: "create-edit-modal", attrs: { title: _vm.titleModal } },
+        [
+          _c("div", { staticClass: "d-block text-center" }, [
+            _c("h3", [_vm._v("Hello From My Modal!")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              staticClass: "mt-3",
+              attrs: { variant: "outline-danger", block: "" }
+            },
+            [_vm._v("Close Me")]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              staticClass: "mt-2",
+              attrs: { variant: "outline-warning", block: "" }
+            },
+            [_vm._v("Toggle Me")]
+          )
         ],
         1
       )

@@ -11,4 +11,9 @@ class Workplace extends Model
         'code',
         'address'
     ];
+
+    public function employees()
+    {
+        return $this->hasMany('Catering\Models\Employee', 'workplace_id');
+    }
 }
