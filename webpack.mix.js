@@ -11,9 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .styles([
-      'node_modules/bootstrap/dist/css/bootstrap.min.css',
-      'node_modules/bootstrap-vue/dist/bootstrap-vue.min.css'
-   ],'public/css/vendors.css')
-   .styles('resources/css/app.css','public/css/app.css')
+mix.js('resources/js/app.js', 'public/js').extract(['jquery', 'bootstrap', 'vue', 'axios', 'bootstrap-vue'])
+
+
+mix.styles([
+    'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    'node_modules/bootstrap-vue/dist/bootstrap-vue.min.css'
+], 'public/css/vendors.css')
+    .styles('resources/css/app.css', 'public/css/app.css')

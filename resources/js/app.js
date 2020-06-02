@@ -5,7 +5,7 @@
  */
 
 // Main Js
-require('./bootstrap');
+// require('./bootstrap');
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import VueFeather from 'vue-feather';

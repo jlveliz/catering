@@ -19,7 +19,7 @@ ul {
 
 a {
     font-size: 13px;
-    color: #37474f;
+    color: #007bff;
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out
 }
@@ -11653,4 +11653,9 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataT
 
 .custom-form-button {
     font-size: 14px;
+}
+
+
+.table a {
+    font-size:15px;
 }

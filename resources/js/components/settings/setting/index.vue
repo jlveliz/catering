@@ -13,7 +13,7 @@
           <div class="card-header">
             <h5>General</h5>
           </div>
-          <div class="card-body">
+          <div class="card-block">
             <form @submit.stop.prevent="saveFrmGeneral" validated novalidate>
               <b-form-group
                 id="lbl-business-name"
