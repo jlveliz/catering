@@ -1,6 +1,8 @@
 
 'use strict';
 
+import axios from 'axios';
+
 export const Helpers = {
 
     setBodyTheme(theme) {
@@ -11,6 +13,11 @@ export const Helpers = {
     removeBodyTheme() {
         const body = document.querySelector('body');
         body.removeAttribute('themebg-pattern');
+    },
+
+    async validateUnique(data) {
+        let promise = await axios.post('/api/validators', data, { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
+        return await promise.data;
     }
 
 

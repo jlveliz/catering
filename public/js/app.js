@@ -728,7 +728,14 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_parts_ContentHeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../layouts/parts/ContentHeaderComponent */ "./resources/js/layouts/parts/ContentHeaderComponent.vue");
 /* harmony import */ var _layouts_parts_ContentMainContentComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../layouts/parts/ContentMainContentComponent */ "./resources/js/layouts/parts/ContentMainContentComponent.vue");
-/* harmony import */ var _WorkplaceService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./WorkplaceService */ "./resources/js/components/settings/workplace/WorkplaceService.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../helpers */ "./resources/js/helpers.js");
+/* harmony import */ var _WorkplaceService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./WorkplaceService */ "./resources/js/components/settings/workplace/WorkplaceService.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_6__);
 //
 //
 //
@@ -795,11 +802,98 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WorkplaceIndex",
+  mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_2__["validationMixin"]],
   components: {
     ContentHeaderComponent: _layouts_parts_ContentHeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     ContentMainContentComponent: _layouts_parts_ContentMainContentComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -832,28 +926,174 @@ __webpack_require__.r(__webpack_exports__);
         label: "Acción"
       }],
       workplaces: [],
-      titleModal: ""
+      model: {
+        code: null,
+        name: null,
+        address: null
+      },
+      titleModal: "",
+      savingFrm: false,
+      frmValidation: {
+        code: null,
+        name: null,
+        address: null
+      },
+      modalButtonSave: ""
     };
+  },
+  validations: {
+    model: {
+      code: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        isUnique: function isUnique(value) {
+          var _this = this;
+
+          if (!value) return true;
+          return new Promise(function (resolve) {
+            setTimeout(function () {
+              var params = {
+                method: "unique",
+                table: "workplaces",
+                field: "name",
+                value: value
+              };
+              if (_this.model.id) params.id = _this.model.id;
+              var exists = _helpers__WEBPACK_IMPORTED_MODULE_4__["Helpers"].validateUnique(params);
+              exists.then(function (data) {
+                resolve(data.data);
+              });
+            }, 3000);
+          });
+        }
+      },
+      name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        isUnique: function isUnique(value) {
+          var _this2 = this;
+
+          if (!value) return true;
+          return new Promise(function (resolve) {
+            setTimeout(function () {
+              var params = {
+                method: "unique",
+                table: "workplaces",
+                field: "name",
+                value: value
+              };
+              if (_this2.model.id) params.id = _this2.model.id;
+              var exists = _helpers__WEBPACK_IMPORTED_MODULE_4__["Helpers"].validateUnique(params);
+              exists.then(function (data) {
+                resolve(data.data);
+              });
+            }, 3000);
+          });
+        }
+      },
+      address: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      }
+    }
   },
   methods: {
     loadWorkplaces: function loadWorkplaces() {
-      var _this = this;
+      var _this3 = this;
 
-      _WorkplaceService__WEBPACK_IMPORTED_MODULE_2__["WorkplaceService"].listWorkplaces().then(function (result) {
-        return _this.workplaces = result;
+      _WorkplaceService__WEBPACK_IMPORTED_MODULE_5__["WorkplaceService"].listWorkplaces().then(function (result) {
+        return _this3.workplaces = result;
+      });
+    },
+    resetFormCreateEdit: function resetFormCreateEdit() {
+      var _this4 = this;
+
+      this.model = {
+        code: null,
+        name: null,
+        address: null
+      };
+      this.savingFrm = false;
+      this.$nextTick(function () {
+        _this4.$v.$reset();
       });
     },
     createWorkplace: function createWorkplace() {
+      this.resetFormCreateEdit();
       this.$refs["create-edit-modal"].show();
       this.titleModal = "Crear Lugar de Trabajo";
     },
     editWorkplace: function editWorkplace(id) {
-      this.$refs["create-edit-modal"].show();
-      this.titleModal = "Editar Lugar de Trabajo";
+      var _this5 = this;
+
+      this.resetFormCreateEdit();
+      _WorkplaceService__WEBPACK_IMPORTED_MODULE_5__["WorkplaceService"].getWorkplace(id).then(function (result) {
+        _this5.model = result;
+
+        _this5.$refs["create-edit-modal"].show();
+
+        _this5.titleModal = "Editar Lugar de Trabajo";
+      });
+    },
+    closeModal: function closeModal() {
+      this.$v.$reset();
+      this.$refs["create-edit-modal"].hide();
+    },
+    makeToast: function makeToast(options) {
+      this.$bvToast.toast(options.content, options);
+    },
+    saveFrmWorkplace: function saveFrmWorkplace(bvModalEvt) {
+      var _this6 = this;
+
+      bvModalEvt.preventDefault();
+      this.$v.model.$touch();
+
+      if (this.$v.model.$anyError) {
+        return;
+      }
+
+      this.savingFrm = true;
+      var isUpdating = false;
+
+      if (this.model.id) {
+        isUpdating = true;
+        var promise = _WorkplaceService__WEBPACK_IMPORTED_MODULE_5__["WorkplaceService"].updateWorkplace(this.model);
+      } else {
+        var promise = _WorkplaceService__WEBPACK_IMPORTED_MODULE_5__["WorkplaceService"].saveWorkplace(this.model);
+      }
+
+      promise.then(function (result) {
+        if (isUpdating) {
+          _this6.refreshListWorkplaces(result);
+        } else {
+          _this6.workplaces.push(result);
+        }
+
+        _this6.makeToast({
+          content: !isUpdating ? "Área de trabajo guardada" : "Área de trabajo actualizada",
+          title: "Atención",
+          variant: "info"
+        });
+      })["catch"](function (err) {
+        _this6.makeToast({
+          content: "No se pudo guardar el área de trabajo",
+          title: "Atención",
+          variant: "danger"
+        });
+      }).then(function (r) {
+        return _this6.$refs["create-edit-modal"].hide();
+      });
+    },
+    refreshListWorkplaces: function refreshListWorkplaces(data) {
+      var idx = this.workplaces.findIndex(function (el) {
+        return el.id == data.id;
+      });
+      if (idx) this.$set(this.workplaces, idx, data);
+    },
+    validateState: function validateState(item) {
+      var $error = this.$v.model[item].$error;
+      return $error ? false : null;
     }
   },
   mounted: function mounted() {
-    return this.loadWorkplaces();
+    this.loadWorkplaces();
   }
 });
 
@@ -1436,7 +1676,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.login-logo-img[data-v-ecc2ca70] {\n  width: 8%;\n}\n\n", ""]);
+exports.push([module.i, "\n.login-logo-img[data-v-ecc2ca70] {\r\n  width: 8%;\n}\r\n\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1454,7 +1694,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.page-header.card .page-header-title i, .page-header.card .page-header-title svg {\n  margin-right: 0px !important;\n}\n", ""]);
+exports.push([module.i, "\n.page-header.card .page-header-title i, .page-header.card .page-header-title svg {\r\n  margin-right: 0px !important;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1472,7 +1712,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n@media only screen and (max-width: 992px) {\n.header-navbar .navbar-wrapper .navbar-logo a img[data-v-9adc1f6c] {\n    width: 8% !important;\n}\n}\n", ""]);
+exports.push([module.i, "\n@media only screen and (max-width: 992px) {\n.header-navbar .navbar-wrapper .navbar-logo a img[data-v-9adc1f6c] {\r\n    width: 8% !important;\n}\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1490,7 +1730,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\nul.show-notification li[data-v-72e07b72]:hover {\n  background-color: #f1f1f1 !important;\n}\n", ""]);
+exports.push([module.i, "\nul.show-notification li[data-v-72e07b72]:hover {\r\n  background-color: #f1f1f1 !important;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1508,7 +1748,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.login-block {\n  margin: 30px auto;\n  min-height: 93.6vh;\n}\n.login-block .auth-box {\n  margin: 20px auto 0 auto;\n  max-width: 450px;\n}\n", ""]);
+exports.push([module.i, "\n.login-block {\r\n  margin: 30px auto;\r\n  min-height: 93.6vh;\n}\n.login-block .auth-box {\r\n  margin: 20px auto 0 auto;\r\n  max-width: 450px;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -10849,7 +11089,7 @@ var render = function() {
                                       staticClass: "align-middle",
                                       attrs: { type: "edit", size: "15px" }
                                     }),
-                                    _vm._v(" Editar\n                ")
+                                    _vm._v("Editar\n                ")
                                   ],
                                   1
                                 ),
@@ -10865,7 +11105,7 @@ var render = function() {
                                             size: "15px"
                                           }
                                         }),
-                                        _vm._v(" Eliminar\n                ")
+                                        _vm._v("Eliminar\n                ")
                                       ],
                                       1
                                     )
@@ -10889,31 +11129,195 @@ var render = function() {
       _vm._v(" "),
       _c(
         "b-modal",
-        { ref: "create-edit-modal", attrs: { title: _vm.titleModal } },
+        {
+          ref: "create-edit-modal",
+          attrs: {
+            title: _vm.titleModal,
+            "button-size": "sm",
+            "ok-title": "Guardar",
+            "ok-disabled": this.$v.model.$anyError || this.savingFrm,
+            "cancel-title": "Cancelar",
+            "cancel-variant": "outline-dark",
+            "cancel-disabled": this.savingFrm
+          },
+          on: { ok: _vm.saveFrmWorkplace, hidden: _vm.closeModal }
+        },
         [
-          _c("div", { staticClass: "d-block text-center" }, [
-            _c("h3", [_vm._v("Hello From My Modal!")])
-          ]),
-          _vm._v(" "),
           _c(
-            "b-button",
+            "form",
             {
-              staticClass: "mt-3",
-              attrs: { variant: "outline-danger", block: "" }
+              attrs: { validated: "", novalidate: "" },
+              on: {
+                submit: function($event) {
+                  $event.stopPropagation()
+                  $event.preventDefault()
+                  return _vm.saveFrmWorkplace($event)
+                }
+              }
             },
-            [_vm._v("Close Me")]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-button",
-            {
-              staticClass: "mt-2",
-              attrs: { variant: "outline-warning", block: "" }
-            },
-            [_vm._v("Toggle Me")]
+            [
+              _c(
+                "b-form-row",
+                [
+                  _c(
+                    "b-col",
+                    { attrs: { sm: "6", lg: "4" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "lbl-model-code",
+                            label: "Código*",
+                            "label-for": "txt-model-code",
+                            "label-size": "sm"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "txt-model-code",
+                              required: "",
+                              placeholder: "COD-1",
+                              size: "sm",
+                              disabled: _vm.savingFrm,
+                              state: _vm.validateState("code"),
+                              "aria-describedby": "txt-model-code-feedback"
+                            },
+                            model: {
+                              value: _vm.$v.model.code.$model,
+                              callback: function($$v) {
+                                _vm.$set(_vm.$v.model.code, "$model", $$v)
+                              },
+                              expression: "$v.model.code.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          !_vm.$v.model.code.required
+                            ? _c(
+                                "b-form-invalid-feedback",
+                                { attrs: { id: "txt-model-code-feedback" } },
+                                [_vm._v("Código requerido")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.$v.model.code.isUnique
+                            ? _c(
+                                "b-form-invalid-feedback",
+                                { attrs: { id: "txt-model-code-feedback" } },
+                                [_vm._v("Código existente")]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { sm: "6", lg: "8" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "lbl-model-name",
+                            label: "Nombre*",
+                            "label-for": "txt-model-name",
+                            "label-size": "sm"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "txt-model-name",
+                              required: "",
+                              placeholder: "Principal",
+                              size: "sm",
+                              disabled: _vm.savingFrm,
+                              state: _vm.validateState("name"),
+                              "aria-describedby": "txt-model-name-feedback"
+                            },
+                            model: {
+                              value: _vm.$v.model.name.$model,
+                              callback: function($$v) {
+                                _vm.$set(_vm.$v.model.name, "$model", $$v)
+                              },
+                              expression: "$v.model.name.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          !_vm.$v.model.name.required
+                            ? _c(
+                                "b-form-invalid-feedback",
+                                { attrs: { id: "txt-model-name-feedback" } },
+                                [_vm._v("Nombre requerido")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.$v.model.name.isUnique
+                            ? _c(
+                                "b-form-invalid-feedback",
+                                { attrs: { id: "txt-model-name-feedback" } },
+                                [_vm._v("Nombre existente")]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "lbl-address",
+                    label: "Dirección",
+                    "label-for": "txt-address",
+                    "label-size": "sm"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "txt-address",
+                      required: "",
+                      placeholder: "Sur de la Ciudad 90",
+                      size: "sm",
+                      disabled: _vm.savingFrm,
+                      state: _vm.validateState("address"),
+                      "aria-describedby": "txt-model-address-feedback"
+                    },
+                    model: {
+                      value: _vm.$v.model.address.$model,
+                      callback: function($$v) {
+                        _vm.$set(_vm.$v.model.address, "$model", $$v)
+                      },
+                      expression: "$v.model.address.$model"
+                    }
+                  }),
+                  _vm._v(" "),
+                  !_vm.$v.model.address.required
+                    ? _c(
+                        "b-form-invalid-feedback",
+                        { attrs: { id: "txt-model-address-feedback" } },
+                        [_vm._v("Dirección requerido")]
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            ],
+            1
           )
-        ],
-        1
+        ]
       )
     ],
     1
@@ -17670,7 +18074,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/logo.svg?3f4792a56949f26ddd09cb3ebbd0a7dd";
+module.exports = "/images/logo.svg?e92a1a60652f8a19614e53ce59ec19b6";
 
 /***/ }),
 
@@ -18025,7 +18429,7 @@ var SettingService = {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/settings/' + data.id, data, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/settings/' + data.table + '/' + data.field, data, {
                 headers: {
                   Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -18181,7 +18585,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var URL = '/api/workplaces/';
+var URL = '/api/workplaces';
 var WorkplaceService = {
   listWorkplaces: function listWorkplaces() {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -18221,7 +18625,7 @@ var WorkplaceService = {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(URL + id, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(URL + '/' + id, {
                 headers: {
                   Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -18245,7 +18649,7 @@ var WorkplaceService = {
   },
   saveWorkplace: function saveWorkplace(data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var mySavedData;
+      var promise;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -18258,9 +18662,9 @@ var WorkplaceService = {
               });
 
             case 2:
-              mySavedData = _context3.sent;
+              promise = _context3.sent;
               _context3.next = 5;
-              return mySavedData.data.data;
+              return promise.data.data;
 
             case 5:
               return _context3.abrupt("return", _context3.sent);
@@ -18275,22 +18679,22 @@ var WorkplaceService = {
   },
   updateWorkplace: function updateWorkplace(data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var mySavedData;
+      var promise;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(URL + data.id, data, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(URL + '/' + data.id, data, {
                 headers: {
                   Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
               });
 
             case 2:
-              mySavedData = _context4.sent;
+              promise = _context4.sent;
               _context4.next = 5;
-              return mySavedData.data.data;
+              return promise.data.data;
 
             case 5:
               return _context4.abrupt("return", _context4.sent);
@@ -18341,14 +18745,15 @@ var WorkplaceService = {
 /*!**************************************************************!*\
   !*** ./resources/js/components/settings/workplace/index.vue ***!
   \**************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_vue_vue_type_template_id_a16f2e10___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=a16f2e10& */ "./resources/js/components/settings/workplace/index.vue?vue&type=template&id=a16f2e10&");
 /* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/components/settings/workplace/index.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -18378,7 +18783,7 @@ component.options.__file = "resources/js/components/settings/workplace/index.vue
 /*!***************************************************************************************!*\
   !*** ./resources/js/components/settings/workplace/index.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18416,6 +18821,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Helpers", function() { return Helpers; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 var Helpers = {
@@ -18426,6 +18842,36 @@ var Helpers = {
   removeBodyTheme: function removeBodyTheme() {
     var body = document.querySelector('body');
     body.removeAttribute('themebg-pattern');
+  },
+  validateUnique: function validateUnique(data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var promise;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/validators', data, {
+                headers: {
+                  Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+              });
+
+            case 2:
+              promise = _context.sent;
+              _context.next = 5;
+              return promise.data;
+
+            case 5:
+              return _context.abrupt("return", _context.sent);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   }
 };
 
@@ -19447,7 +19893,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/php73/catering/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laragon\www\catering\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

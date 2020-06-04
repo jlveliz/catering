@@ -24,6 +24,10 @@ Route::post('logout', 'Api\LoginController@logout')->middleware('auth:api');
 
 
 Route::middleware(['auth:api'])->group(function () {
+
+    // Validators
+    Route::post('validators', 'ValidatorController@index');
+
     Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
     Route::resource('menus', 'MenuController');
@@ -50,4 +54,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('payment-methods', 'PaymentMethodController');
     Route::resource('invoices', 'InvoiceController');
     Route::resource('invoices.details', 'InvoiceDetailController');
+
+
+    
 });
