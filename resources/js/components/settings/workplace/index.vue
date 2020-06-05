@@ -43,7 +43,10 @@
                   <b-dropdown-item @click="editWorkplace(row.item.id)">
                     <feather type="edit" size="15px" class="align-middle"></feather>Editar
                   </b-dropdown-item>
-                  <b-dropdown-item v-if="row.item.num_employees == 0">
+                  <b-dropdown-item
+                    v-if="row.item.num_employees == 0"
+                    @click="deleteWorkplace(row.item,row.index)"
+                  >
                     <feather type="delete" size="15px" class="align-middle"></feather>Eliminar
                   </b-dropdown-item>
                 </b-dropdown>
@@ -154,6 +157,7 @@ import { required } from "vuelidate/lib/validators";
 import { Helpers } from "./../../../helpers";
 import { WorkplaceService } from "./WorkplaceService";
 import Vue from "vue";
+import swal from "sweetalert";
 
 export default {
   name: "WorkplaceIndex",
@@ -297,6 +301,36 @@ export default {
         this.titleModal = "Editar Lugar de Trabajo";
       });
     },
+    deleteWorkplace(item, idx) {
+      swal({
+        title: "Atención",
+        text:
+          "Deseas eliminar " +
+          item.name +
+          "?. Una vez eliminado no podrá recuperarlo",
+        icon: "warning",
+        dangerMode: true,
+        buttons: true
+      })
+        .then(() => {
+          let promise = WorkplaceService.removeWorkplace(item.id);
+          promise.then(result => {
+            this.$delete(this.workplaces, idx);
+            this.makeToast({
+              content: "Área de trabajo eliminada",
+              title: "Atención",
+              variant: "info"
+            });
+          });
+        })
+        .catch(() => {
+          this.makeToast({
+            content: "No se pudo eliminar el Área de trabajo",
+            title: "Atención",
+            variant: "danger"
+          });
+        });
+    },
     closeModal() {
       this.$v.$reset();
       this.$refs["create-edit-modal"].hide();
@@ -345,7 +379,7 @@ export default {
     },
     refreshListWorkplaces(data) {
       let idx = this.workplaces.findIndex(el => el.id == data.id);
-      if (idx) this.$set(this.workplaces, idx, data);
+      if (idx > -1) this.$set(this.workplaces, idx, data);
     },
     validateState(item) {
       const { $error } = this.$v.model[item];

@@ -26,7 +26,7 @@ export const WorkplaceService = {
     },
 
     async removeWorkplace(id) {
-        let mySavedData = await axios.delete(URL + id, { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
+        let mySavedData = await axios.delete(URL + '/' + id, { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
         return await mySavedData.data;
     }
 }
