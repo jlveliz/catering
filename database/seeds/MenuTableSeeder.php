@@ -172,7 +172,7 @@ class MenuTableSeeder extends Seeder
         // Accounting
         $accounting = [
             'name' => 'Contabilidad',
-            'route_name' => '',
+            'route_name' => 'accounting',
             'icon' => 'dollar-sign',
             'order' => 5,
             'enabled' => true
@@ -235,7 +235,7 @@ class MenuTableSeeder extends Seeder
         $users = [
             'name' => 'Usuarios',
             'route_name' => 'users',
-            'icon' => 'users',
+            'icon' => '',
             'order' => 1,
             'parent_id' => $settings->id,
             'enabled' => true
@@ -247,7 +247,7 @@ class MenuTableSeeder extends Seeder
         $accounting = [
             'name' => 'Contabilidad',
             'route_name' => 'accounting',
-            'icon' => 'accounting',
+            'icon' => '',
             'order' => 2,
             'parent_id' => $settings->id,
             'enabled' => true
@@ -259,7 +259,7 @@ class MenuTableSeeder extends Seeder
         $workplace = [
             'name' => 'Lugares de trabajo',
             'route_name' => 'workplaces',
-            'icon' => 'workplace',
+            'icon' => '',
             'order' => 3,
             'parent_id' => $settings->id,
             'enabled' => true
@@ -271,7 +271,7 @@ class MenuTableSeeder extends Seeder
         $setting = [
             'name' => 'Configuración',
             'route_name' => 'settings',
-            'icon' => 'cog',
+            'icon' => '',
             'order' => 4,
             'parent_id' => $settings->id,
             'enabled' => true

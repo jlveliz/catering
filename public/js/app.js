@@ -245,6 +245,188 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/settings/accounting/index.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/settings/accounting/index.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _layouts_parts_ContentHeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../layouts/parts/ContentHeaderComponent */ "./resources/js/layouts/parts/ContentHeaderComponent.vue");
+/* harmony import */ var _layouts_parts_ContentMainContentComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../layouts/parts/ContentMainContentComponent */ "./resources/js/layouts/parts/ContentMainContentComponent.vue");
+/* harmony import */ var _AccountingService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AccountingService */ "./resources/js/components/settings/accounting/AccountingService.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AccountingIndex",
+  mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_3__["validationMixin"]],
+  components: {
+    ContentHeaderComponent: _layouts_parts_ContentHeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ContentMainContentComponent: _layouts_parts_ContentMainContentComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      listBreadcumbs: [{
+        text: "Configuración"
+      }, {
+        text: "Contabilidad",
+        active: true
+      }],
+      statesItemFrm: {
+        savingLegalRepresentant: false,
+        savingTaxIdentification: false,
+        savingInvoiceFrmConfig: false,
+        savingInvoiceInitSequential: false
+      },
+      frmInvoice: {
+        legal_representant: {},
+        tax_identification: {},
+        invoice_init_sequential: {}
+      }
+    };
+  },
+  validations: {
+    frmInvoice: {
+      legal_representant: {
+        value: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        }
+      },
+      tax_identification: {
+        value: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        }
+      },
+      invoice_init_sequential: {
+        value: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        }
+      }
+    }
+  },
+  methods: {
+    saveItemConfig: function saveItemConfig() {},
+    loadInvoiceConfig: function loadInvoiceConfig(type, formObject) {
+      _AccountingService__WEBPACK_IMPORTED_MODULE_2__["AccountingService"].listConfig(type).then(function (results) {
+        results.map(function (item) {
+          if (formObject.hasOwnProperty(item.key)) {
+            formObject[item.key] = item;
+          }
+        });
+      });
+    },
+    validateState: function validateState(item) {
+      item = item.split(".");
+      var $error = this.$v[item[0]][item[1]].value.$error;
+      return $error ? false : null;
+    },
+    makeToast: function makeToast(options) {
+      this.$bvToast.toast(options.content, options);
+    }
+  },
+  mounted: function mounted() {
+    this.loadInvoiceConfig("invoice", this.frmInvoice);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/settings/setting/index.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/settings/setting/index.vue?vue&type=script&lang=js& ***!
@@ -10158,6 +10340,261 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/settings/accounting/index.vue?vue&type=template&id=38cadb89&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/settings/accounting/index.vue?vue&type=template&id=38cadb89& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("content-header-component", {
+        attrs: {
+          title: "Contabilidad",
+          subtitle: "Configuración disponible para la facturación",
+          icon: "file-text",
+          listBreadcrumbs: _vm.listBreadcumbs
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "content-main-content-component",
+        [
+          _c("b-col", { attrs: { cols: "12" } }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("h5", [_vm._v("Facturación")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-block" }, [
+                _c(
+                  "form",
+                  {
+                    attrs: { validated: "", novalidate: "" },
+                    on: {
+                      submit: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        return _vm.saveFrmInvoice($event)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "b-form-row",
+                      [
+                        _c(
+                          "b-col",
+                          { attrs: { sm: "12", md: "4" } },
+                          [
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  id: "lbl-legal-representant",
+                                  label: "Representante Legal",
+                                  "label-for": "txt-legal-representant",
+                                  "label-size": "sm"
+                                }
+                              },
+                              [
+                                _c("b-form-input", {
+                                  attrs: {
+                                    id: "txt-legal-representant",
+                                    required: "",
+                                    placeholder: "Alejandro Falconi",
+                                    size: "sm",
+                                    disabled:
+                                      _vm.statesItemFrm
+                                        .savingLegalRepresentant ||
+                                      _vm.statesItemFrm.savingInvoiceFrmConfig,
+                                    state: _vm.validateState(
+                                      "frmInvoice.legal_representant"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.saveItemConfig(
+                                        _vm.frmInvoice.legal_representant,
+                                        "savingLegalRepresentant"
+                                      )
+                                    }
+                                  },
+                                  model: {
+                                    value:
+                                      _vm.$v.frmInvoice.legal_representant.value
+                                        .$model,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.$v.frmInvoice.legal_representant
+                                          .value,
+                                        "$model",
+                                        $$v
+                                      )
+                                    },
+                                    expression:
+                                      "$v.frmInvoice.legal_representant.value.$model"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-col",
+                          { attrs: { sm: "12", md: "4" } },
+                          [
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  id: "lbl-tax-identification",
+                                  label: "RUC",
+                                  "label-for": "txt-tax-identification",
+                                  "label-size": "sm"
+                                }
+                              },
+                              [
+                                _c("b-form-input", {
+                                  attrs: {
+                                    id: "txt-tax-identification",
+                                    required: "",
+                                    placeholder: "0926894544001",
+                                    size: "sm",
+                                    disabled:
+                                      _vm.statesItemFrm
+                                        .savingTaxIdentification ||
+                                      _vm.statesItemFrm.savingInvoiceFrmConfig,
+                                    state: _vm.validateState(
+                                      "frmInvoice.tax_identification"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.saveItemConfig(
+                                        _vm.frmInvoice.tax_identification,
+                                        "savingTaxIdentification"
+                                      )
+                                    }
+                                  },
+                                  model: {
+                                    value:
+                                      _vm.$v.frmInvoice.tax_identification.value
+                                        .$model,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.$v.frmInvoice.tax_identification
+                                          .value,
+                                        "$model",
+                                        $$v
+                                      )
+                                    },
+                                    expression:
+                                      "$v.frmInvoice.tax_identification.value.$model"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-col",
+                          { attrs: { sm: "12", md: "4" } },
+                          [
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  id: "lbl-invoice-init-sequential",
+                                  label: "Sencuencial Inical en Facturas",
+                                  "label-for": "txt-invoice-init-sequential",
+                                  "label-size": "sm"
+                                }
+                              },
+                              [
+                                _c("b-form-input", {
+                                  attrs: {
+                                    id: "txt-invoice-init-sequential",
+                                    required: "",
+                                    placeholder: "0926894544001",
+                                    size: "sm",
+                                    disabled:
+                                      _vm.statesItemFrm
+                                        .savingInvoiceInitSequential ||
+                                      _vm.statesItemFrm.savingInvoiceFrmConfig,
+                                    state: _vm.validateState(
+                                      "frmInvoice.invoice_init_sequential"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.saveItemConfig(
+                                        _vm.frmInvoice.invoice_init_sequential,
+                                        "savingInvoiceInitSequential"
+                                      )
+                                    }
+                                  },
+                                  model: {
+                                    value:
+                                      _vm.$v.frmInvoice.invoice_init_sequential
+                                        .value.$model,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.$v.frmInvoice
+                                          .invoice_init_sequential.value,
+                                        "$model",
+                                        $$v
+                                      )
+                                    },
+                                    expression:
+                                      "$v.frmInvoice.invoice_init_sequential.value.$model"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/settings/setting/index.vue?vue&type=template&id=7ff5c7f2&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/settings/setting/index.vue?vue&type=template&id=7ff5c7f2& ***!
@@ -10474,7 +10911,7 @@ var render = function() {
                 _c("h5", [_vm._v("Servicios")])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "card-block" }, [
                 _c(
                   "form",
                   {
@@ -18423,6 +18860,201 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/settings/accounting/AccountingService.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/settings/accounting/AccountingService.js ***!
+  \**************************************************************************/
+/*! exports provided: AccountingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountingService", function() { return AccountingService; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var AccountingService = {
+  listConfig: function listConfig(type) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var configs;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/settings/' + type, {
+                headers: {
+                  Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+              });
+
+            case 2:
+              configs = _context.sent;
+              _context.next = 5;
+              return configs.data.data;
+
+            case 5:
+              return _context.abrupt("return", _context.sent);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  saveItemConfig: function saveItemConfig(data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var mySavedData;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/settings/' + data.table + '/' + data.field, data, {
+                headers: {
+                  Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+              });
+
+            case 2:
+              mySavedData = _context2.sent;
+              _context2.next = 5;
+              return mySavedData.data.data;
+
+            case 5:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  saveAllForm: function saveAllForm(collection) {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var data, key;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              data = {};
+              _context3.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.keys(collection);
+
+            case 2:
+              if ((_context3.t1 = _context3.t0()).done) {
+                _context3.next = 9;
+                break;
+              }
+
+              key = _context3.t1.value;
+              _context3.next = 6;
+              return _this.saveItemConfig(collection[key], collection[key].id);
+
+            case 6:
+              data[key] = _context3.sent;
+              _context3.next = 2;
+              break;
+
+            case 9:
+              return _context3.abrupt("return", data);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/settings/accounting/index.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/settings/accounting/index.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _index_vue_vue_type_template_id_38cadb89___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=38cadb89& */ "./resources/js/components/settings/accounting/index.vue?vue&type=template&id=38cadb89&");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/components/settings/accounting/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_38cadb89___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_38cadb89___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/settings/accounting/index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/settings/accounting/index.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/settings/accounting/index.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/settings/accounting/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/settings/accounting/index.vue?vue&type=template&id=38cadb89&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/settings/accounting/index.vue?vue&type=template&id=38cadb89& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_38cadb89___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=38cadb89& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/settings/accounting/index.vue?vue&type=template&id=38cadb89&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_38cadb89___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_38cadb89___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/settings/setting/SettingService.js":
 /*!********************************************************************!*\
   !*** ./resources/js/components/settings/setting/SettingService.js ***!
@@ -19678,10 +20310,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/dashboard/home */ "./resources/js/components/dashboard/home.vue");
 /* harmony import */ var _components_settings_setting_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/settings/setting/index */ "./resources/js/components/settings/setting/index.vue");
 /* harmony import */ var _components_settings_workplace_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/settings/workplace/index */ "./resources/js/components/settings/workplace/index.vue");
+/* harmony import */ var _components_settings_accounting_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/settings/accounting/index */ "./resources/js/components/settings/accounting/index.vue");
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // Components
+
 
 
 
@@ -19706,6 +20340,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/home',
     name: 'home',
     component: _components_dashboard_home__WEBPACK_IMPORTED_MODULE_4__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/accounting',
+    name: 'accounting',
+    component: _components_settings_accounting_index__WEBPACK_IMPORTED_MODULE_7__["default"],
     meta: {
       requiresAuth: true
     }

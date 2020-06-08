@@ -118,7 +118,7 @@
           <div class="card-header">
             <h5>Servicios</h5>
           </div>
-          <div class="card-body">
+          <div class="card-block">
             <form @submit.stop.prevent="saveFrmServices" validated novalidate>
               <b-form-row>
                 <b-col sm="12" lg="12">
