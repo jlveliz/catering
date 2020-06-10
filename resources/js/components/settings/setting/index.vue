@@ -103,7 +103,22 @@
                     class="custom-form-button"
                     :disabled="$v.frmGeneral.$invalid"
                   >
-                    <feather type="save" class="align-top" size="15"></feather>Guardar
+                    <feather
+                      v-show="statesItemFrm.savingGeneralFrmConfig"
+                      type="settings"
+                      animation="spin"
+                      animation-speed="slow"
+                      class="align-top"
+                      size="15"
+                    ></feather>
+                    <feather
+                      v-show="!statesItemFrm.savingGeneralFrmConfig"
+                      type="save"
+                      class="align-top"
+                      size="15"
+                    ></feather>
+                    <span v-show="!statesItemFrm.savingGeneralFrmConfig">Guardar</span>
+                    <span v-show="statesItemFrm.savingGeneralFrmConfig">Guardando</span>
                   </b-button>
                 </b-col>
               </b-form-row>
@@ -228,7 +243,11 @@
             <form @submit.stop.prevent="saveFrmServices" validated novalidate>
               <b-form-row>
                 <b-form-group label="Pesos">
-                  <b-form-radio-group v-model="$v.frmMeasure.weight.value.$model" @change="saveItemConfig(frmMeasure.weight,'savingWeight')"  :disabled="statesItemFrm.savingWeight">
+                  <b-form-radio-group
+                    v-model="$v.frmMeasure.weight.value.$model"
+                    @change="saveItemConfig(frmMeasure.weight,'savingWeight')"
+                    :disabled="statesItemFrm.savingWeight"
+                  >
                     <b-form-radio value="libra">Libra(s)</b-form-radio>
                     <b-form-radio value="kilo">Kilo(s)</b-form-radio>
                   </b-form-radio-group>

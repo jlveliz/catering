@@ -10,7 +10,7 @@ export const SettingService = {
     },
 
     async saveItemConfig(data) {
-        let mySavedData = await axios.put('/api/settings/' + data.table + '/' + data.field , data ,{ headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
+        let mySavedData = await axios.put('/api/settings/' + data.id , data ,{ headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
         return await mySavedData.data.data;
     },
 

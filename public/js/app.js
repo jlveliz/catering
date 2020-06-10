@@ -348,6 +348,126 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -371,13 +491,21 @@ __webpack_require__.r(__webpack_exports__);
       statesItemFrm: {
         savingLegalRepresentant: false,
         savingTaxIdentification: false,
-        savingInvoiceFrmConfig: false,
-        savingInvoiceInitSequential: false
+        savingInvoiceGenerationBeginMonth: false,
+        savingInvoiceEachFifteenDays: false,
+        savingInvoiceGenerationEndMonth: false,
+        waitForPayInvoices: false,
+        savingInvoiceInitSequential: false,
+        savingInvoiceFrmConfig: false
       },
       frmInvoice: {
         legal_representant: {},
         tax_identification: {},
-        invoice_init_sequential: {}
+        invoice_init_sequential: {},
+        invoice_generation_begin_month: {},
+        invoice_each_fifteen_days: {},
+        invoice_generation_end_month: {},
+        wait_for_pay_invoices: {}
       }
     };
   },
@@ -397,11 +525,61 @@ __webpack_require__.r(__webpack_exports__);
         value: {
           required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
         }
+      },
+      invoice_generation_begin_month: {
+        value: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        }
+      },
+      invoice_each_fifteen_days: {
+        value: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        }
+      },
+      invoice_generation_end_month: {
+        value: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        }
+      },
+      wait_for_pay_invoices: {
+        value: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        }
       }
     }
   },
+  computed: {
+    getDays: function getDays() {
+      var days = [];
+
+      for (var index = 1; index < 32; index++) {
+        days.push(index);
+      }
+
+      return days;
+    }
+  },
   methods: {
-    saveItemConfig: function saveItemConfig() {},
+    saveItemConfig: function saveItemConfig(data, item) {
+      var _this = this;
+
+      if (!data.value) return false;
+      this.statesItemFrm[item] = true;
+      _AccountingService__WEBPACK_IMPORTED_MODULE_2__["AccountingService"].saveItemConfig(data).then(function (result) {
+        data = result;
+        _this.statesItemFrm[item] = false;
+
+        _this.makeToast({
+          content: "Configuración Guardada",
+          title: "Atención",
+          variant: "info"
+        });
+      })["catch"](function (err) {
+        _this.statesItemFrm[item] = false;
+      }).then(function (always) {
+        return _this.statesItemFrm[item] = false;
+      });
+    },
     loadInvoiceConfig: function loadInvoiceConfig(type, formObject) {
       _AccountingService__WEBPACK_IMPORTED_MODULE_2__["AccountingService"].listConfig(type).then(function (results) {
         results.map(function (item) {
@@ -418,6 +596,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     makeToast: function makeToast(options) {
       this.$bvToast.toast(options.content, options);
+    },
+    saveFrmInvoice: function saveFrmInvoice() {
+      var _this2 = this;
+
+      if (this.$v.frmInvoice.$invalid) return false;
+      this.statesItemFrm.savingInvoiceFrmConfig = true;
+      _AccountingService__WEBPACK_IMPORTED_MODULE_2__["AccountingService"].saveAllForm(this.frmInvoice).then(function (result) {
+        _this2.statesItemFrm.savingInvoiceFrmConfig = false;
+        _this2.frmService = result;
+
+        _this2.makeToast({
+          content: "Configuración de Facturación Guardada",
+          title: "Atención",
+          variant: "info"
+        });
+      });
     }
   },
   mounted: function mounted() {
@@ -443,6 +637,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _SettingService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SettingService */ "./resources/js/components/settings/setting/SettingService.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10515,14 +10728,14 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "b-col",
-                          { attrs: { sm: "12", md: "4" } },
+                          { attrs: { sm: "12", md: "3" } },
                           [
                             _c(
                               "b-form-group",
                               {
                                 attrs: {
                                   id: "lbl-invoice-init-sequential",
-                                  label: "Sencuencial Inical en Facturas",
+                                  label: "Sencuencial en Facturas",
                                   "label-for": "txt-invoice-init-sequential",
                                   "label-size": "sm"
                                 }
@@ -10532,7 +10745,7 @@ var render = function() {
                                   attrs: {
                                     id: "txt-invoice-init-sequential",
                                     required: "",
-                                    placeholder: "0926894544001",
+                                    placeholder: "1",
                                     size: "sm",
                                     disabled:
                                       _vm.statesItemFrm
@@ -10566,6 +10779,406 @@ var render = function() {
                                       "$v.frmInvoice.invoice_init_sequential.value.$model"
                                   }
                                 })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-form-row",
+                      [
+                        _c(
+                          "b-col",
+                          { attrs: { cols: "12" } },
+                          [
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  label: "Días de corte para las facturas",
+                                  description:
+                                    "Día del mes en que seran generadas las facturas para los clientes y cuantos días se puede esperar para que un cliente pague.",
+                                  "label-class": "font-weight-bold",
+                                  "label-size": "sm"
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-form-row",
+                                  [
+                                    _c(
+                                      "b-col",
+                                      { attrs: { md: "3", sm: "6" } },
+                                      [
+                                        _c(
+                                          "b-form-group",
+                                          {
+                                            attrs: {
+                                              label: "Inicio de mes",
+                                              "label-size": "sm",
+                                              id:
+                                                "lbl-invoice-generation-begin-month",
+                                              "label-for":
+                                                "select-invoice-generation-begin-month"
+                                            }
+                                          },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                id:
+                                                  "select-invoice-generation-begin-month",
+                                                options: _vm.getDays,
+                                                required: "",
+                                                size: "sm",
+                                                disabled:
+                                                  _vm.statesItemFrm
+                                                    .savingInvoiceGenerationBeginMonth ||
+                                                  _vm.statesItemFrm
+                                                    .savingInvoiceFrmConfig,
+                                                state: _vm.validateState(
+                                                  "frmInvoice.invoice_generation_begin_month"
+                                                )
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  return _vm.saveItemConfig(
+                                                    _vm.frmInvoice
+                                                      .invoice_generation_begin_month,
+                                                    "savingInvoiceGenerationBeginMonth"
+                                                  )
+                                                }
+                                              },
+                                              model: {
+                                                value:
+                                                  _vm.$v.frmInvoice
+                                                    .invoice_generation_begin_month
+                                                    .value.$model,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.$v.frmInvoice
+                                                      .invoice_generation_begin_month
+                                                      .value,
+                                                    "$model",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression:
+                                                  "$v.frmInvoice.invoice_generation_begin_month.value.$model"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-col",
+                                      { attrs: { md: "3", sm: "6" } },
+                                      [
+                                        _c(
+                                          "b-form-group",
+                                          {
+                                            attrs: {
+                                              label: "Mediado de mes",
+                                              "label-size": "sm",
+                                              id:
+                                                "lbl-invoice-each-fifteen-days",
+                                              "label-for":
+                                                "select-invoice-each-fifteen-days"
+                                            }
+                                          },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                id:
+                                                  "select-invoice-each-fifteen-days",
+                                                options: _vm.getDays,
+                                                required: "",
+                                                size: "sm",
+                                                disabled:
+                                                  _vm.statesItemFrm
+                                                    .savingInvoiceEachFifteenDays ||
+                                                  _vm.statesItemFrm
+                                                    .savingInvoiceFrmConfig,
+                                                state: _vm.validateState(
+                                                  "frmInvoice.invoice_each_fifteen_days"
+                                                )
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  return _vm.saveItemConfig(
+                                                    _vm.frmInvoice
+                                                      .invoice_each_fifteen_days,
+                                                    "savingInvoiceEachFifteenDays"
+                                                  )
+                                                }
+                                              },
+                                              model: {
+                                                value:
+                                                  _vm.$v.frmInvoice
+                                                    .invoice_each_fifteen_days
+                                                    .value.$model,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.$v.frmInvoice
+                                                      .invoice_each_fifteen_days
+                                                      .value,
+                                                    "$model",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression:
+                                                  "$v.frmInvoice.invoice_each_fifteen_days.value.$model"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-col",
+                                      { attrs: { md: "3", sm: "6" } },
+                                      [
+                                        _c(
+                                          "b-form-group",
+                                          {
+                                            attrs: {
+                                              label: "Fines de mes",
+                                              "label-size": "sm",
+                                              id:
+                                                "lbl-invoice-generation-end-month",
+                                              "label-for":
+                                                "select-invoice-generation-end-month"
+                                            }
+                                          },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                id:
+                                                  "select-invoice-generation-end-month",
+                                                options: _vm.getDays,
+                                                required: "",
+                                                size: "sm",
+                                                disabled:
+                                                  _vm.statesItemFrm
+                                                    .savingInvoiceGenerationEndMonth ||
+                                                  _vm.statesItemFrm
+                                                    .savingInvoiceFrmConfig,
+                                                state: _vm.validateState(
+                                                  "frmInvoice.invoice_generation_end_month"
+                                                )
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  return _vm.saveItemConfig(
+                                                    _vm.frmInvoice
+                                                      .invoice_generation_end_month,
+                                                    "savingInvoiceGenerationEndMonth"
+                                                  )
+                                                }
+                                              },
+                                              model: {
+                                                value:
+                                                  _vm.$v.frmInvoice
+                                                    .invoice_generation_end_month
+                                                    .value.$model,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.$v.frmInvoice
+                                                      .invoice_generation_end_month
+                                                      .value,
+                                                    "$model",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression:
+                                                  "$v.frmInvoice.invoice_generation_end_month.value.$model"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-col",
+                                      { attrs: { md: "3", sm: "6" } },
+                                      [
+                                        _c(
+                                          "b-form-group",
+                                          {
+                                            attrs: {
+                                              label: "Días de espera en pagos",
+                                              "label-size": "sm",
+                                              id: "lbl-wait-for-pay-invoices",
+                                              "label-for":
+                                                "select-wait-for-pay-invoices"
+                                            }
+                                          },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                id:
+                                                  "select-wait-for-pay-invoices",
+                                                options: _vm.getDays,
+                                                required: "",
+                                                size: "sm",
+                                                disabled:
+                                                  _vm.statesItemFrm
+                                                    .waitForPayInvoices ||
+                                                  _vm.statesItemFrm
+                                                    .savingInvoiceFrmConfig,
+                                                state: _vm.validateState(
+                                                  "frmInvoice.wait_for_pay_invoices"
+                                                )
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  return _vm.saveItemConfig(
+                                                    _vm.frmInvoice
+                                                      .wait_for_pay_invoices,
+                                                    "waitForPayInvoices"
+                                                  )
+                                                }
+                                              },
+                                              model: {
+                                                value:
+                                                  _vm.$v.frmInvoice
+                                                    .wait_for_pay_invoices.value
+                                                    .$model,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.$v.frmInvoice
+                                                      .wait_for_pay_invoices
+                                                      .value,
+                                                    "$model",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression:
+                                                  "$v.frmInvoice.wait_for_pay_invoices.value.$model"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-form-row",
+                      [
+                        _c(
+                          "b-col",
+                          { attrs: { cols: "12" } },
+                          [
+                            _c(
+                              "b-button",
+                              {
+                                staticClass: "custom-form-button",
+                                attrs: {
+                                  type: "submit",
+                                  variant: "primary",
+                                  size: "sm",
+                                  disabled: _vm.$v.frmInvoice.$invalid
+                                }
+                              },
+                              [
+                                _c("feather", {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value:
+                                        _vm.statesItemFrm
+                                          .savingInvoiceFrmConfig,
+                                      expression:
+                                        "statesItemFrm.savingInvoiceFrmConfig"
+                                    }
+                                  ],
+                                  staticClass: "align-top",
+                                  attrs: {
+                                    type: "settings",
+                                    animation: "spin",
+                                    "animation-speed": "slow",
+                                    size: "15"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("feather", {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: !_vm.statesItemFrm
+                                        .savingInvoiceFrmConfig,
+                                      expression:
+                                        "!statesItemFrm.savingInvoiceFrmConfig"
+                                    }
+                                  ],
+                                  staticClass: "align-top",
+                                  attrs: { type: "save", size: "15" }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: !_vm.statesItemFrm
+                                          .savingInvoiceFrmConfig,
+                                        expression:
+                                          "!statesItemFrm.savingInvoiceFrmConfig"
+                                      }
+                                    ]
+                                  },
+                                  [_vm._v("Guardar")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value:
+                                          _vm.statesItemFrm
+                                            .savingInvoiceFrmConfig,
+                                        expression:
+                                          "statesItemFrm.savingInvoiceFrmConfig"
+                                      }
+                                    ]
+                                  },
+                                  [_vm._v("Guardando")]
+                                )
                               ],
                               1
                             )
@@ -10885,10 +11498,75 @@ var render = function() {
                               },
                               [
                                 _c("feather", {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value:
+                                        _vm.statesItemFrm
+                                          .savingGeneralFrmConfig,
+                                      expression:
+                                        "statesItemFrm.savingGeneralFrmConfig"
+                                    }
+                                  ],
+                                  staticClass: "align-top",
+                                  attrs: {
+                                    type: "settings",
+                                    animation: "spin",
+                                    "animation-speed": "slow",
+                                    size: "15"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("feather", {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: !_vm.statesItemFrm
+                                        .savingGeneralFrmConfig,
+                                      expression:
+                                        "!statesItemFrm.savingGeneralFrmConfig"
+                                    }
+                                  ],
                                   staticClass: "align-top",
                                   attrs: { type: "save", size: "15" }
                                 }),
-                                _vm._v("Guardar\n                ")
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: !_vm.statesItemFrm
+                                          .savingGeneralFrmConfig,
+                                        expression:
+                                          "!statesItemFrm.savingGeneralFrmConfig"
+                                      }
+                                    ]
+                                  },
+                                  [_vm._v("Guardar")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value:
+                                          _vm.statesItemFrm
+                                            .savingGeneralFrmConfig,
+                                        expression:
+                                          "statesItemFrm.savingGeneralFrmConfig"
+                                      }
+                                    ]
+                                  },
+                                  [_vm._v("Guardando")]
+                                )
                               ],
                               1
                             )
@@ -18922,7 +19600,7 @@ var AccountingService = {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/settings/' + data.table + '/' + data.field, data, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/settings/' + data.id, data, {
                 headers: {
                   Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -19117,7 +19795,7 @@ var SettingService = {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/settings/' + data.table + '/' + data.field, data, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/settings/' + data.id, data, {
                 headers: {
                   Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
