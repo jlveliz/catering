@@ -26,7 +26,7 @@
       <div class="navbar-container container-fluid d-inline">
         <ul class="nav-right" :class="{'d-block':showMobileUserProfile}">
           <li class="user-profile header-notification">
-            <user-profile :username="this.user.name + ' ' + this.user.lastname"></user-profile>
+            <user-profile :username="this.user.fullname"></user-profile>
           </li>
         </ul>
       </div>

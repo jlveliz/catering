@@ -10,6 +10,7 @@ import HomeViewComponent from './components/dashboard/home';
 import SettingIndex from './components/settings/setting/index'
 import WorkplaceIndex from './components/settings/workplace/index';
 import AccountingIndex from './components/settings/accounting/index';
+import UsersIndex from './components/settings/user/index';
 
 const router = new VueRouter({
     mode: 'history',
@@ -30,6 +31,14 @@ const router = new VueRouter({
             path: '/home',
             name: 'home',
             component: HomeViewComponent,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/users',
+            name: 'users',
+            component: UsersIndex,
             meta: {
                 requiresAuth: true
             }
